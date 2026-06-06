@@ -3,3 +3,9 @@ node_modules/
 .serve-out.log
 .vscode/
 *.log
+BUILD_DECISIONS.md
+DEVELOPER_GUIDE.md
+check-images.ps1
+optimize-images.ps1
+scripts/
+send_email.php
