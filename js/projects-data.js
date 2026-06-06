@@ -79,7 +79,7 @@ const projects = [
     image: "assets/images/portfolio-screenshot.png",
     tech: ["HTML", "CSS", "JavaScript", "Figma"],
     liveUrl: "#",
-    githubUrl: "https://github.com/abdulaziz-cyber395/portfolio",
+    githubUrl: "https://github.com/abdulaziz-cyber395/my-portfolio",
     details: [
       {
         heading: '<i class="fa-solid fa-bullseye"></i> The Real Problem',
