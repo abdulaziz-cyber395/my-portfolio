@@ -1,0 +1,16 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website",
+  "scripts": {
+    "dev": "serve -p 3000",
+    "build": "node scripts/optimize-images.js && npm run css:build",
+    "css:build": "node scripts/minify-css.js",
+    "start": "serve",
+    "optimize-images": "node scripts/optimize-images.js"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0",
+    "sharp": "^0.34.5"
+  }
+}

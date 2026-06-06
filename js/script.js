@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if (filterButtons.length && projectDetails.length) {
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
-        // Update active button
         filterButtons.forEach((btn) => {
           btn.classList.remove('active');
           btn.setAttribute('aria-pressed', 'false');
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const filter = button.dataset.filter;
 
-        // Filter projects
         projectDetails.forEach((project) => {
           if (filter === 'all') {
             project.classList.remove('hidden');
@@ -36,13 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle project detail navigation with smooth scroll and highlighting
   const projectDetailSection = document.querySelectorAll('.project-detail');
   if (projectDetailSection.length > 0) {
-    // Highlight current project when page loads with hash
     const currentHash = window.location.hash.slice(1);
     if (currentHash) {
       const targetElement = document.getElementById(currentHash);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Add visual highlight
         targetElement.style.borderColor = 'rgba(110, 231, 183, 0.3)';
         setTimeout(() => {
           targetElement.style.transition = 'border-color 280ms ease';
@@ -51,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // Handle hash changes
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
       if (hash) {
@@ -60,6 +55,44 @@ document.addEventListener('DOMContentLoaded', function() {
           targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
+    });
+  }
+
+  // Contact form submission with Formspree
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      const formData = new FormData(contactForm);
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          contactForm.reset();
+          submitBtn.textContent = 'Message Sent!';
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          }, 3000);
+        } else {
+          response.json().then(data => {
+            alert(data.error || 'Failed to send message');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          });
+        }
+      })
+      .catch(() => {
+        alert('Failed to send message. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      });
     });
   }
 
