@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 const imagesDir = path.join(__dirname, '..', 'assets', 'images');
-const maxWidth = 400;
-const maxHeight = 500;
-const quality = 65;
+const maxWidth = 1200;
+const maxHeight = 1200;
+const quality = 85;
 
 async function optimizeImages() {
   const files = fs.readdirSync(imagesDir);
@@ -18,22 +18,23 @@ async function optimizeImages() {
     const stats = fs.statSync(filePath);
     const originalSize = stats.size;
 
+    // Skip files smaller than 50KB or profile images
+    if (originalSize < 50000 || /profile|avatar/i.test(file)) {
+      console.log(`SKIP: ${file} (${(originalSize/1024).toFixed(1)} KB - profile or small file)`);
+      continue;
+    }
+
     try {
-      const ext = path.extname(file).toLowerCase();
-
-      if (originalSize < 20000) {
-        console.log(`SKIP: ${file} (${(originalSize/1024).toFixed(1)} KB)`);
-        continue;
-      }
-
       console.log(`Processing: ${file} (${(originalSize/1024).toFixed(1)} KB)`);
+
+      const ext = path.extname(file).toLowerCase();
 
       let buffer;
 
       if (ext === '.png') {
         buffer = await sharp(filePath)
           .resize({ width: maxWidth, height: maxHeight, fit: 'inside', withoutEnlargement: true })
-          .png({ compressionLevel: 9, palette: true, effort: 10 })
+          .png({ compressionLevel: 9, palette: false, effort: 10 })
           .toBuffer();
       } else {
         buffer = await sharp(filePath)
