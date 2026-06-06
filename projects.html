@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Abdul Aziz Portfolio</title>
+  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="style" href="css/style.css">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+  <main id="main-content">
+    <div class="main-wrapper">
+      <nav id="navbar" class="navbar">
+        <div class="container">
+          <h1 class="nav-logo"><a href="index.html">ABDUL AZIZ</a></h1>
+          <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <ul class="nav-links" id="main-nav">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#approach">My Approach</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <section id="hero" class="hero section">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <p class="intro">Featured Work</p>
+              <h1 class="name">Projects<span class="highlight">.</span></h1>
+              <h2 class="role">Work I'm proud to share</h2>
+              <p class="description">
+                A curated selection of projects focused on structure, usability, and real-world problem solving.
+              </p>
+              <div class="newsletter-input">
+                <a href="index.html" class="btn btn-secondary">Back to Home</a>
+                <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
+              </div>
+            </div>
+            <div class="hero-image">
+              <img src="assets/images/aziz-profile.jpeg" alt="Profile Image" fetchpriority="high">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="projects-heading">
+        <div class="container">
+          <h2 id="projects-heading" class="section-title">Project Details</h2>
+          <p class="section-intro">
+            A closer look at the projects I've built — the thinking behind them, what they solve, and what I learned building each one.
+          </p>
+
+          <!-- Project Filter -->
+          <div class="filter-section">
+            <div class="filter-header">
+              <span class="filter-label">Filter by category:</span>
+            </div>
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-filter="all" aria-pressed="true">All Projects</button>
+              <button class="filter-btn" data-filter="educational">Educational</button>
+              <button class="filter-btn" data-filter="corporate">Corporate</button>
+              <button class="filter-btn" data-filter="design-system">Design System</button>
+              <button class="filter-btn" data-filter="interactive">Interactive</button>
+              <button class="filter-btn" data-filter="form-design">Form Design</button>
+            </div>
+          </div>
+
+          <!-- Project details will be rendered dynamically by js/projects-data.js -->
+          
+        </div>
+       </section>
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <div class="container">
+          <div class="cta-content">
+            <h2>Ready to work together?</h2>
+            <p>Each of these projects taught me something crucial about thinking, problem-solving, and building solutions that matter. Let's discuss how I can contribute to your next project.</p>
+            <div class="cta-buttons">
+              <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
+              <a href="index.html" class="btn btn-secondary">Back to Home</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer id="footer" class="footer">
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-section">
+              <h3 class="footer-logo">Inusah Abdul Aziz</h3>
+              <p class="footer-description">
+                IT Student & Frontend Developer focused on building structured, meaningful digital solutions.
+              </p>
+            </div>
+            <div class="footer-section">
+              <h4 class="footer-heading">Pages</h4>
+              <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="footer-section">
+              <h4 class="footer-heading">Connect</h4>
+              <ul class="footer-links">
+                <li><a href="https://github.com/abdulaziz-cyber395" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/inusah-abdul-aziz-988445328" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="mailto:abdulazizinusah82@gmail.com">Email</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="footer-divider"></div>
+            <p class="footer-copyright">&copy; 2026 Inusah Abdul Aziz. All rights reserved.</p>
+            <p class="footer-statement">Designed and developed with structure, clarity, and purpose.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+  <script src="js/projects-data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
