@@ -1,5 +1,17 @@
 {
   "version": 2,
-  "builds": [{ "src": "./*", "use": "@vercel/static" }],
-  "routes": [{ "src": "/(.*)", "dest": "/$1" }]
+  "builds": [
+    {
+      "src": ".",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "."
+      }
+    }
+  ],
+  "overrides": {
+    "engines": {
+      "node": "24.x"
+    }
+  }
 }
