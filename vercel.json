@@ -1,17 +1,3 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": ".",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "."
-      }
-    }
-  ],
-  "overrides": {
-    "engines": {
-      "node": "24.x"
-    }
-  }
+  "version": 2
 }
