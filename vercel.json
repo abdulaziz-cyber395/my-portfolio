@@ -1,5 +1,4 @@
 {
   "version": 2,
-  "builds": [{ "src": "*.html", "use": "@vercel/static-html-server" }],
-  "routes": [{ "src": "/(.*)", "dest": "/$1" }]
+  "builds": [{ "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "." } }]
 }

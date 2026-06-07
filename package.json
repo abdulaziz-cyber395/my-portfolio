@@ -4,7 +4,7 @@
   "description": "Personal portfolio website",
   "scripts": {
     "dev": "serve -p 3000",
-    "build": "node scripts/optimize-images.js && npm run css:build",
+    "build": "node scripts/optimize-images.js && node scripts/minify-css.js",
     "css:build": "node scripts/minify-css.js",
     "start": "serve",
     "optimize-images": "node scripts/optimize-images.js"
