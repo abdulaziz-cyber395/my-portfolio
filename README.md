@@ -248,7 +248,7 @@ portfolio/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/abinusah/portfolio.git
+   git clone https://github.com/abdulaziz-cyber395/my-portfolio.git
    cd portfolio
    ```
 
@@ -270,7 +270,7 @@ portfolio/
 ### Netlify
 
 1. Connect the GitHub repository
-2. Build command: *(leave empty)*
+2. Build command: `npm run build`
 3. Publish directory: `/`
 4. Deploy — pushes to `main` auto-deploy
 
@@ -278,7 +278,7 @@ portfolio/
 
 1. Import the GitHub repository
 2. Framework Preset: **Other**
-3. Build Command: *(leave empty)*
+3. Build command: `npm run build`
 4. Output Directory: `/`
 5. Deploy — pushes to `main` auto-deploy
 
