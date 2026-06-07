@@ -4,10 +4,10 @@
   "description": "Personal portfolio website",
   "scripts": {
     "dev": "serve -p 3000",
-    "build": "node scripts/optimize-images.js && node scripts/minify-css.js",
-    "css:build": "node scripts/minify-css.js",
+    "build": "echo 'Static site - no build required'",
     "start": "serve",
-    "optimize-images": "node scripts/optimize-images.js"
+    "optimize-images": "node scripts/optimize-images.js",
+    "css:build": "node scripts/minify-css.js"
   },
   "devDependencies": {
     "serve": "^14.2.0",
