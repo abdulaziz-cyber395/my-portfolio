@@ -182,9 +182,36 @@ button, input, textarea { font: inherit; }
 .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(161, 161, 170, 0.5); }
 .form-group input:focus, .form-group textarea:focus { border-color: rgba(110, 231, 183, 0.48); background: rgba(0, 0, 0, 0.58); box-shadow: 0 0 0 4px rgba(110, 231, 183, 0.08); outline: none; }
 .form-group textarea { min-height: 145px; resize: vertical; }
+
 .contact-form-card .btn { width: 100%; margin-top: 1rem; }
 
+.contact-status {
+  margin-top: 1rem;
+  min-height: 1.25rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-secondary);
+  font-weight: 650;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.contact-status.is-success {
+  border-color: rgba(110, 231, 183, 0.25);
+  background: rgba(110, 231, 183, 0.08);
+  color: #a7f3d0;
+}
+
+.contact-status.is-error {
+  border-color: rgba(244, 63, 94, 0.35);
+  background: rgba(244, 63, 94, 0.08);
+  color: #fecdd3;
+}
+
 .filter-section { margin: 2.5rem 0 3.5rem 0; padding: 1.8rem; border: 1px solid var(--border); border-radius: var(--radius); background: linear-gradient(180deg, rgba(110, 231, 183, 0.04), rgba(110, 231, 183, 0.01)), var(--card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03); transition: all 300ms ease; }
+
 .filter-section:hover { border-color: rgba(110, 231, 183, 0.15); background: linear-gradient(180deg, rgba(110, 231, 183, 0.06), rgba(110, 231, 183, 0.02)), var(--card); }
 .filter-header { margin-bottom: 1rem; }
 .filter-label { display: inline-block; color: var(--text-secondary); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }

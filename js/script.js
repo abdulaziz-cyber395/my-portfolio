@@ -62,36 +62,66 @@ document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const statusEl = document.getElementById('contact-status');
+
+    const setStatus = (message, type) => {
+      if (!statusEl) return;
+      statusEl.textContent = message || '';
+      statusEl.classList.remove('is-success', 'is-error');
+      if (type === 'success') statusEl.classList.add('is-success');
+      if (type === 'error') statusEl.classList.add('is-error');
+    };
+
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
+
+      if (!submitBtn) return;
+
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
+      contactForm.setAttribute('aria-busy', 'true');
+      setStatus('Sending your message...', null);
+
       const formData = new FormData(contactForm);
+
       fetch(contactForm.action, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
       })
-      .then(response => {
+      .then(async (response) => {
         if (response.ok) {
           contactForm.reset();
-          submitBtn.textContent = 'Message Sent!';
+          setStatus('Message sent! Thanks for reaching out — I’ll get back to you soon.', 'success');
+          submitBtn.textContent = 'Sent ✓';
+
           setTimeout(() => {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
-          }, 3000);
-        } else {
-          response.json().then(data => {
-            alert(data.error || 'Failed to send message');
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-          });
+            contactForm.removeAttribute('aria-busy');
+          }, 2500);
+          return;
         }
-      })
-      .catch(() => {
-        alert('Failed to send message. Please try again.');
+
+        // Try to parse Formspree error message if possible.
+        let data = null;
+        try {
+          data = await response.json();
+        } catch {
+          // ignore JSON parsing errors
+        }
+
+        const msg = data?.error || 'Failed to send message. Please try again.';
+        setStatus(msg, 'error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send Message';
+        contactForm.removeAttribute('aria-busy');
+      })
+      .catch(() => {
+        setStatus('Network error — please try again in a moment.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+        contactForm.removeAttribute('aria-busy');
       });
     });
   }
