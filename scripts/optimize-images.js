@@ -20,12 +20,12 @@ async function optimizeImages() {
 
     // Skip files smaller than 50KB or profile images
     if (originalSize < 50000 || /profile|avatar/i.test(file)) {
-      console.log(`SKIP: ${file} (${(originalSize/1024).toFixed(1)} KB - profile or small file)`);
+      console.log(`SKIP: ${file} (${(originalSize / 1024).toFixed(1)} KB - profile or small file)`);
       continue;
     }
 
     try {
-      console.log(`Processing: ${file} (${(originalSize/1024).toFixed(1)} KB)`);
+      console.log(`Processing: ${file} (${(originalSize / 1024).toFixed(1)} KB)`);
 
       const ext = path.extname(file).toLowerCase();
 
@@ -47,7 +47,7 @@ async function optimizeImages() {
 
       const newSize = buffer.length;
       const reduction = ((1 - newSize / originalSize) * 100).toFixed(1);
-      console.log(`  SUCCESS: ${(originalSize/1024).toFixed(1)} KB -> ${(newSize/1024).toFixed(1)} KB (${reduction}% reduction)\n`);
+      console.log(`  SUCCESS: ${(originalSize / 1024).toFixed(1)} KB -> ${(newSize / 1024).toFixed(1)} KB (${reduction}% reduction)\n`);
     } catch (err) {
       console.log(`  ERROR: ${err.message}\n`);
     }

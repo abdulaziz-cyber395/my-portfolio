@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+Sitemap: https://abdulaziz-cyber395.github.io/my-portfolio/sitemap.xml

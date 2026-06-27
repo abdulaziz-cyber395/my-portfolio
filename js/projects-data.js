@@ -78,7 +78,7 @@ const projects = [
     category: "design-system",
     image: "assets/images/portfolio-screenshot.png",
     tech: ["HTML", "CSS", "JavaScript", "Figma"],
-    liveUrl: "#",
+    liveUrl: "https://my-portfolio-psi-umber-57.vercel.app/",
     githubUrl: "https://github.com/abdulaziz-cyber395/my-portfolio",
     details: [
       {
@@ -113,7 +113,7 @@ const projects = [
     category: "interactive",
     image: "assets/images/calculator-screenshot.png",
     tech: ["HTML", "CSS", "JavaScript"],
-    liveUrl: "#",
+    liveUrl: "https://calculator-omega-two-10.vercel.app/",
     githubUrl: "https://github.com/abdulaziz-cyber395/calculator-app",
     details: [
       {
@@ -148,7 +148,7 @@ const projects = [
     category: "form-design",
     image: "assets/images/signup-form-screenshot.png",
     tech: ["HTML5", "CSS3", "JavaScript"],
-    liveUrl: "#",
+    liveUrl: "https://sign-up-form-seven-sigma.vercel.app/",
     githubUrl: "https://github.com/abdulaziz-cyber395/signup-form",
     details: [
       {

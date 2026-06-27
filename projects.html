@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects - Abdul Aziz Portfolio</title>
+  <meta name="description" content="Projects by Inusah Abdul Aziz — Frontend Developer. Explore educational platforms, corporate websites, design systems, and interactive applications.">
+  <meta property="og:title" content="Projects — Abdul Aziz Portfolio">
+  <meta property="og:description" content="A curated selection of projects focused on structure, usability, and real-world problem solving.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://abdulaziz-cyber395.github.io/my-portfolio/projects.html">
+  <meta name="theme-color" content="#060a08">
+  <link rel="canonical" href="https://abdulaziz-cyber395.github.io/my-portfolio/projects.html">
+  <title>Projects — Abdul Aziz Portfolio</title>
   <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=fallback&subset=latin">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=fallback&subset=latin">
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=fallback&subset=latin">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=fallback&subset=latin">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print"
+    onload="this.media='all'">
 </head>
+
 <body>
   <a href="#main-content" class="skip-nav">Skip to main content</a>
-  <main id="main-content">
-    <div class="main-wrapper">
+   <main id="main-content">
+     <div class="main-wrapper">
+
+       <div class="scroll-progress" aria-hidden="true"></div>
+
+      <!-- Back to Top Button -->
+       <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">
+         <i class="fa-solid fa-arrow-up"></i>
+       </button>
+
+       <!-- Custom Cursor -->
+       <div class="cursor-dot" aria-hidden="true"></div>
+       <div class="cursor-ring" aria-hidden="true"></div>
       <nav id="navbar" class="navbar">
         <div class="container">
           <h1 class="nav-logo"><a href="index.html">ABDUL AZIZ</a></h1>
-          <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+          <button class="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
+            <i class="fa-solid fa-moon theme-icon-dark"></i>
+            <i class="fa-solid fa-sun theme-icon-light"></i>
+          </button>
+          <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+            aria-controls="main-nav">
             <span></span>
             <span></span>
             <span></span>
@@ -61,7 +89,8 @@
         <div class="container">
           <h2 id="projects-heading" class="section-title">Project Details</h2>
           <p class="section-intro">
-            A closer look at the projects I've built — the thinking behind them, what they solve, and what I learned building each one.
+            A closer look at the projects I've built — the thinking behind them, what they solve, and what I learned
+            building each one.
           </p>
 
           <!-- Project Filter -->
@@ -80,16 +109,17 @@
           </div>
 
           <!-- Project details will be rendered dynamically by js/projects-data.js -->
-          
+
         </div>
-       </section>
+      </section>
 
       <!-- CTA Section -->
       <section class="cta-section">
         <div class="container">
           <div class="cta-content">
             <h2>Ready to work together?</h2>
-            <p>Each of these projects taught me something crucial about thinking, problem-solving, and building solutions that matter. Let's discuss how I can contribute to your next project.</p>
+            <p>Each of these projects taught me something crucial about thinking, problem-solving, and building
+              solutions that matter. Let's discuss how I can contribute to your next project.</p>
             <div class="cta-buttons">
               <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
               <a href="index.html" class="btn btn-secondary">Back to Home</a>
@@ -120,8 +150,10 @@
             <div class="footer-section">
               <h4 class="footer-heading">Connect</h4>
               <ul class="footer-links">
-                <li><a href="https://github.com/abdulaziz-cyber395" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href="https://www.linkedin.com/in/inusah-abdul-aziz-988445328" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://github.com/abdulaziz-cyber395" target="_blank" rel="noopener noreferrer me">GitHub</a>
+                </li>
+                <li><a href="https://www.linkedin.com/in/inusah-abdul-aziz-988445328" target="_blank"
+                    rel="noopener noreferrer me">LinkedIn</a></li>
                 <li><a href="mailto:abdulazizinusah82@gmail.com">Email</a></li>
               </ul>
             </div>
@@ -137,5 +169,30 @@
   </main>
   <script src="js/projects-data.js"></script>
   <script src="js/script.js"></script>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+    <div class="shortcuts-content">
+      <h3 id="shortcuts-title">Keyboard Shortcuts</h3>
+      <div class="shortcut-item">
+        <span class="shortcut-desc">Open shortcuts</span>
+        <span class="shortcut-keys"><kbd>/</kbd></span>
+      </div>
+      <div class="shortcut-item">
+        <span class="shortcut-desc">Close modal</span>
+        <span class="shortcut-keys"><kbd>Esc</kbd></span>
+      </div>
+      <div class="shortcut-item">
+        <span class="shortcut-desc">Back to top</span>
+        <span class="shortcut-keys"><kbd>T</kbd></span>
+      </div>
+      <div class="shortcut-item">
+        <span class="shortcut-desc">Toggle theme</span>
+        <span class="shortcut-keys"><kbd>D</kbd></span>
+      </div>
+      <button type="button" class="btn btn-secondary shortcuts-close">Close</button>
+    </div>
+  </div>
 </body>
+
 </html>
