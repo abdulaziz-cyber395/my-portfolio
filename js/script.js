@@ -228,7 +228,7 @@ if (badge) {
     badge.querySelector('.pulse-dot').style.background = '#6ee7b7';
   } else {
     badge.querySelector('.pulse-dot').style.background = '#fbbf24';
-    badge.querySelector('.pulse-dot').nextSibling.textContent = 'Available Tomorrow';
+    badge.querySelector('.pulse-dot').nextSibling.textContent = 'Open to Collaborate';
   }
 }
 
