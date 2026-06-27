@@ -1,10 +1,6 @@
-# Inusah Abdul Aziz - Frontend Developer Portfolio
+# Abdul Aziz — Frontend Developer Portfolio
 
-A modern, professional portfolio website showcasing frontend development skills, structured problem-solving approach, and commitment to impactful technology solutions.
-
-![Portfolio Preview](assets/images/portfolio-screenshot.png)
-
----
+A modern, accessible portfolio website built with semantic HTML, CSS custom properties, and vanilla JavaScript. Features a dark/light theme system, custom cursor, keyboard shortcuts, and a data-driven project showcase.
 
 ## Table of Contents
 
@@ -18,11 +14,9 @@ A modern, professional portfolio website showcasing frontend development skills,
 - [Deployment Guide](#deployment-guide)
 - [Contact Information](#contact-information)
 
----
-
 ## Quick Start: Adding / Updating Projects
 
-All projects are stored in one file: **`js/projects-data.js`**.  
+All projects are stored in one file: **`js/projects-data.js`**.
 You do **not** need to touch `index.html` or `projects.html`.
 
 ### Add a new project
@@ -30,7 +24,7 @@ You do **not** need to touch `index.html` or `projects.html`.
 1. Open `js/projects-data.js`.
 2. Scroll to the `projects` array (starts at line 1).
 3. Copy the template below, paste it **before** the closing `];`, and fill in your details.
-4. Save a screenshot to `assets/images/` (recommended `800×450px`, 16:9).
+4. Save a screenshot to `assets/images/` (recommended `800×450px`, 16:9 ratio).
 5. Refresh the browser — the new project appears automatically on both pages.
 
 ### Update an existing project
@@ -40,8 +34,6 @@ Find the project object inside the `projects` array and change any property (`ti
 ### Remove a project
 
 Delete the entire object from the array. Make sure commas between remaining objects are still valid.
-
----
 
 ## Project Data Format Reference
 
@@ -69,13 +61,13 @@ Use **either** `content` (paragraphs / HTML) **or** `list` (bullet points):
 ```javascript
 // Paragraph format (supports HTML tags like <p> and <strong>)
 {
-  heading: "<i class="fa-solid fa-bullseye"></i> The Real Problem",
-  content: "<p>Describe the problem in <strong>one or more paragraphs</strong>.</p>"
+  heading: "<i class=\"fa-solid fa-bullseye\"></i> The Real Problem",
+  content: "Describe the problem in one or more paragraphs."
 }
 
 // List format (auto-bolds text before the first colon)
 {
-  heading: "<i class="fa-solid fa-lightbulb"></i> Key Solutions Delivered",
+  heading: "<i class=\"fa-solid fa-lightbulb\"></i> Key Solutions Delivered",
   list: [
     "Feature One: What was built and why it matters.",
     "Feature Two: How it helps the end user."
@@ -98,15 +90,15 @@ Use **either** `content` (paragraphs / HTML) **or** `list` (bullet points):
   githubUrl: "https://github.com/yourusername/your-repo",
   details: [
     {
-      heading: "<i class="fa-solid fa-bullseye"></i> The Real Problem",
+      heading: "<i class=\"fa-solid fa-bullseye\"></i> The Real Problem",
       content: "What problem does this solve for users?"
     },
     {
-      heading: "<i class="fa-solid fa-building"></i> How I Approached It",
+      heading: "<i class=\"fa-solid fa-building\"></i> How I Approached It",
       content: "<p><strong>Step 1:</strong> What you did first.</p><p><strong>Step 2:</strong> How you structured it.</p>"
     },
     {
-      heading: "<i class="fa-solid fa-lightbulb"></i> Key Solutions Delivered",
+      heading: "<i class=\"fa-solid fa-lightbulb\"></i> Key Solutions Delivered",
       list: [
         "Solution 1: What feature was built.",
         "Solution 2: What benefit it provides.",
@@ -114,7 +106,7 @@ Use **either** `content` (paragraphs / HTML) **or** `list` (bullet points):
       ]
     },
     {
-      heading: "<i class="fa-solid fa-rocket"></i> What I Learned as a Developer",
+      heading: "<i class=\"fa-solid fa-rocket\"></i> What I Learned as a Developer",
       content: "<p>Your key learnings from this project.</p>"
     }
   ]
@@ -139,9 +131,10 @@ This portfolio represents the professional work of Inusah Abdul Aziz, an IT stud
 
 - **Clean Architecture**: Component-based CSS with semantic HTML
 - **Responsive Design**: Mobile-first approach with fluid layouts
-- **Performance Focused**: Optimized assets and efficient code structure
-- **Accessible**: Semantic markup and keyboard navigation support
+- **Performance Focused**: Preconnected fonts, preloaded critical CSS, lazy-loaded images
+- **Accessible**: Semantic markup, skip links, keyboard navigation, ARIA labels
 - **Maintainable**: Well-documented code with clear organization
+- **Theme System**: Dark and light theme support via CSS custom properties
 
 ---
 
@@ -165,7 +158,7 @@ This portfolio represents the professional work of Inusah Abdul Aziz, an IT stud
 - **React**: Component-based frontend frameworks
 - **Tailwind CSS**: Utility-first CSS framework
 - **Node.js**: Server-side JavaScript runtime
-- **APIs & Backend**: Full-stack development fundamentals
+- **REST APIs**: Backend integration fundamentals
 
 ---
 
@@ -173,7 +166,7 @@ This portfolio represents the professional work of Inusah Abdul Aziz, an IT stud
 
 ### Visual Identity
 
-- **Theme**: Dark background with layered surfaces
+- **Theme**: Dark-first design with full light mode toggle
 - **Accent**: Teal/emerald (`#6ee7b7`) for interactive elements and highlights
 - **Typography**: Inter system font stack
 - **Style**: Soft borders, lift-on-hover cards, restrained glow effects
@@ -181,23 +174,36 @@ This portfolio represents the professional work of Inusah Abdul Aziz, an IT stud
 ### Color System
 
 ```css
---background: #060a08;
---surface: #0c1210;
---card: #101a16;
---border: rgba(255, 255, 255, 0.07);
---text: #edf2f0;
---text-secondary: #9caea8;
---text-muted: #5f736b;
---accent: #6ee7b7;
---accent-deep: #34d399;
+:root {
+  --background: #060a08;
+  --surface: #0c1210;
+  --card: #101a16;
+  --border: rgba(255, 255, 255, 0.07);
+  --text: #edf2f0;
+  --text-secondary: #9caea8;
+  --text-muted: #5f736b;
+  --accent: #6ee7b7;
+  --accent-deep: #34d399;
+}
+
+[data-theme="light"] {
+  --background: #f8faf9;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #0f1a16;
+  --accent: #059669;
+  --accent-deep: #047857;
+}
 ```
 
 ### Design Principles
 
-- **Dark Theme**: Near-black background with subtle grid pattern overlay
-- **Minimal**: Clean layout focused on content presentation
+- **Dark Theme**: Layered surfaces with subtle depth
+- **Light Theme**: Clean white surfaces with refined accents
 - **Structured**: Consistent spacing and typography hierarchy
 - **Performance**: Preconnected fonts, preloaded critical CSS, lazy-loaded images
+- **Accessible**: Semantic HTML, keyboard navigation, focus styling
 
 ---
 
@@ -207,31 +213,43 @@ This portfolio represents the professional work of Inusah Abdul Aziz, an IT stud
 portfolio/
 ├── index.html                 # Main portfolio page (projects load dynamically)
 ├── projects.html              # Dedicated projects showcase page with filters
+├── resume.html                # Auto-generated resume page
 ├── documentation.html         # Technical documentation website
 ├── README.md                  # This file
+├── package.json               # Scripts for dev server and image optimization
 ├── css/
-│   └── style.css              # All styles: variables, layout, components, responsive
+│   ├── style.css              # All styles: variables, layout, components, responsive
+│   └── docs.css               # Documentation page styles (dark-only sidebar layout)
 ├── js/
 │   ├── script.js              # Mobile menu toggle, scroll reveal animations, filtering
 │   ├── docs.js                # Documentation sidebar navigation
-│   └── projects-data.js       # Edit this file to add/update/remove projects
-└── assets/
-    ├── images/                # Screenshots and profile photos
-    │   ├── aziz-profile.jpeg
-    │   ├── abdul profile2.png
-    │   ├── symbols-screenshot.png
-    │   ├── revastech-screenshot.png
-    │   └── calculator-screenshot.png
-    └── icons/
-        └── favicon.ico
+│   ├── projects-data.js       # Edit this file to add/update/remove projects
+│   └── resume-data.js         # Resume data: skills, education, summary
+├── assets/
+│   ├── images/                # Screenshots and profile photos
+│   │   ├── aziz-profile.jpeg
+│   │   ├── my profile1.jpg
+│   │   ├── my profile2.jpg
+│   │   ├── symbols-screenshot.png
+│   │   ├── revastech-screenshot.png
+│   │   ├── calculator-screenshot.png
+│   │   └── portfolio-screenshot.png
+│   └── icons/
+│       └── favicon.ico
+├── scripts/
+│   ├── optimize-images.js     # Image optimization script
+│   └── minify-css.js          # CSS minification script
+├── sitemap.xml
+└── robots.txt
 ```
 
 ### Architecture Decisions
 
-- **Single CSS File**: All styles consolidated in `style.css` with logical sections
-- **Component-Based**: Reusable patterns for cards, buttons, grids
+- **Single CSS File**: All main styles in `style.css` with logical sections
+- **Component-Based**: Reusable patterns for cards, buttons, grids, tags
 - **Data-Driven Projects**: Project content lives in `js/projects-data.js`; HTML is generated automatically
-- **Desktop-First**: Responsive design with max-width breakpoints
+- **Auto-Generated Resume**: Resume page renders from `js/resume-data.js` merged with projects
+- **Responsive Design**: Fluid layouts with max-width breakpoints
 - **Performance**: Optimized images, IntersectionObserver for animations
 
 ---
@@ -247,19 +265,27 @@ portfolio/
 ### Local Development
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/abdulaziz-cyber395/my-portfolio.git
-   cd portfolio
-   ```
+    ```bash
+    git clone https://github.com/abdulaziz-cyber395/my-portfolio.git
+    cd my-portfolio
+    ```
 
-2. **Open in browser**
-   - Open `index.html` directly, **or**
-   - Use VS Code Live Server: install the extension, right-click `index.html`, choose "Open with Live Server"
+2. **Start the dev server**
+    ```bash
+    npm run dev
+    ```
+    Then open `http://localhost:3000` in your browser. The server can also be started by opening `index.html` directly.
+
+3. **Edit content**
+    - Projects: `js/projects-data.js`
+    - Resume data: `js/resume-data.js`
+    - Main content: `index.html`
+    - Styles: `css/style.css`
 
 ### Development Workflow
 
-1. Edit project data in `js/projects-data.js` (or update text/styles in HTML/CSS)
-2. Refresh the browser to see changes
+1. Edit data or styles in the relevant file
+2. Refresh the browser to see changes (Live Server recommended for auto-refresh)
 3. Test on multiple screen sizes
 4. Commit and push when ready
 
@@ -267,29 +293,36 @@ portfolio/
 
 ## Deployment Guide
 
+This is a static site with no build step required. Deploy by uploading the project folder contents.
+
 ### Netlify
 
-1. Connect the GitHub repository
-2. Build command: `npm run build`
+1. Drag the portfolio folder onto [app.netlify.com/drop](https://app.netlify.com/drop)
+2. Or connect your GitHub repo for auto-deploys
 3. Publish directory: `/`
-4. Deploy — pushes to `main` auto-deploy
+4. No build command needed
 
 ### Vercel
 
-1. Import the GitHub repository
+1. Import your GitHub repo on [vercel.com](https://vercel.com)
 2. Framework Preset: **Other**
-3. Build command: `npm run build`
-4. Output Directory: `/`
-5. Deploy — pushes to `main` auto-deploy
+3. Output directory: `/`
+
+### GitHub Pages
+
+1. Push your code to a repo named `username.github.io` (or enable Pages in repo settings)
+2. Go to Settings → Pages → Source: **Deploy from branch**
+3. Select `main` branch and `/` folder
 
 ### Pre-deployment Checklist
 
 - [ ] Test all links and navigation
-- [ ] Validate HTML and CSS
-- [ ] Optimize all images
-- [ ] Test contact form submission
-- [ ] Check responsive design on multiple devices
-- [ ] Verify loading performance
+- [ ] Verify all images load
+- [ ] Check that the contact form works (Formsubmit)
+- [ ] Test dark/light theme toggle
+- [ ] Preview on mobile
+- [ ] Run `npm run optimize-images` if you added new images
+- [ ] Verify the resume page at `resume.html`
 
 ---
 

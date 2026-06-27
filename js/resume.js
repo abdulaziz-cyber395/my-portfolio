@@ -127,6 +127,61 @@
     section.innerHTML = `<h3>Education</h3>${itemsHtml}`;
   };
 
+  window.downloadPDF = () => {
+    const actions = document.querySelector('.resume-actions');
+    const originalDisplay = actions.style.display;
+    actions.style.display = 'none';
+    
+    const container = document.querySelector('.resume-container').cloneNode(true);
+    
+    const overrideStyles = (root) => {
+      root.style.setProperty('background', 'white', 'important');
+      root.style.setProperty('color', '#1a1a1a', 'important');
+      root.style.setProperty('padding', '2rem', 'important');
+      root.style.setProperty('max-width', '820px', 'important');
+      root.style.setProperty('font-family', 'Inter, sans-serif', 'important');
+      
+      root.querySelectorAll('*').forEach(el => {
+        el.style.setProperty('color', '#1a1a1a', 'important');
+        el.style.setProperty('background', 'transparent', 'important');
+      });
+      
+      root.querySelectorAll('.resume-header h1, .resume-section h3, .resume-item-title').forEach(el => {
+        el.style.setProperty('color', '#111827', 'important');
+      });
+      root.querySelectorAll('.resume-header h2').forEach(el => {
+        el.style.setProperty('color', '#059669', 'important');
+      });
+      root.querySelectorAll('.resume-contact a, .resume-project-link').forEach(el => {
+        el.style.setProperty('color', '#059669', 'important');
+      });
+      root.querySelectorAll('.resume-skill-tag').forEach(el => {
+        el.style.setProperty('background', '#f3f4f6', 'important');
+        el.style.setProperty('color', '#374151', 'important');
+        el.style.setProperty('border', '1px solid #d1d5db', 'important');
+      });
+      root.querySelectorAll('.resume-project-tech').forEach(el => {
+        el.style.setProperty('background', '#f3f4f6', 'important');
+        el.style.setProperty('color', '#4b5563', 'important');
+        el.style.setProperty('border', '1px solid #e5e7eb', 'important');
+      });
+    };
+    
+    overrideStyles(container);
+    
+    const opt = {
+      margin: [0.5, 0.5],
+      filename: 'Inusah-Abdul-Aziz-Resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    
+    html2pdf().set(opt).from(container).save().then(() => {
+      actions.style.display = originalDisplay;
+    });
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     renderHeader();
     renderSummary();
