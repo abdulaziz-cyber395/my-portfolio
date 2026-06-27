@@ -78,42 +78,6 @@ if (typingElement) {
   setTimeout(type, 1000);
 }
 
-// ===== ANIMATED STATS COUNTER =====
-const statNumbers = document.querySelectorAll('.stat-number');
-const statsSection = document.querySelector('.stats-section');
-
-function animateCounter(el) {
-  const target = parseInt(el.getAttribute('data-target'));
-  const duration = 2000;
-  const step = target / (duration / 16);
-  let current = 0;
-
-  const updateCounter = () => {
-    current += step;
-    if (current < target) {
-      el.textContent = Math.ceil(current);
-      requestAnimationFrame(updateCounter);
-    } else {
-      el.textContent = target;
-    }
-  };
-
-  updateCounter();
-}
-
-if (statsSection && statNumbers.length) {
-  const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        statNumbers.forEach(stat => animateCounter(stat));
-        statsObserver.unobserve(statsSection);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  statsObserver.observe(statsSection);
-}
-
 // ===== SCROLL SPY =====
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('#main-nav a');
@@ -509,7 +473,6 @@ const revealTargets = document.querySelectorAll([
   '.skill-group',
   '.contact-method',
   '.timeline-content',
-  '.stat-card'
 ].join(','));
 
 revealTargets.forEach((target) => target.classList.add('reveal'));

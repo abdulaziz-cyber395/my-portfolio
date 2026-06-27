@@ -550,33 +550,6 @@ button, input, textarea { font: inherit; }
   background: rgba(0, 0, 0, 0.03);
 }
 
-/* Stats Section */
-.stats-section {
-  padding: 3rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-}
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.2rem;
-}
-.stat-card {
-  text-align: center;
-  padding: 2rem 1rem;
-}
-.stat-number {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 820;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-.stat-label {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
 @media (max-width: 760px) {
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -817,8 +790,6 @@ kbd {
   .footer-content { gap: 1.4rem; }
   .filter-buttons { flex-wrap: wrap; }
   .filter-btn { padding: 0.55rem 0.9rem; font-size: 0.8rem; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .stat-card { padding: 1.5rem 1rem; }
   .timeline::before { left: 12px; }
   .timeline-item { padding-left: 40px; }
   .timeline-marker { left: 3px; width: 18px; height: 18px; }
@@ -838,8 +809,6 @@ kbd {
   .project-detail { padding: 1.5rem; margin-bottom: 2rem; }
   .project-detail-header { gap: 1rem; }
   .project-detail-content { gap: 1.2rem; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .stat-number { font-size: 2.5rem; }
   .availability-badge { font-size: 0.68rem; }
   .form-group input, .form-group textarea { padding-right: 2.5rem; }
   .validation-icon { right: 0.75rem; top: 2.4rem; font-size: 0.85rem; }
