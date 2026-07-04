@@ -194,6 +194,16 @@ const observer = new IntersectionObserver((entries) => {
 
 **Why**: Immediate visual categorization without reading descriptions.
 
+### Figma Designs Grid
+
+**Decision**: A separate "Figma Designs" section (`js/figma-designs.js` + `.figma-grid`/`.figma-card`) reusing the exact same data-array-and-render-function pattern as the projects grid, rather than a one-off implementation.
+
+**Why**:
+- **Consistency**: Same mental model as adding a project — save a screenshot, add an array entry, refresh
+- **Separation of concerns**: Pure UI/UX exploration work (not yet coded) is kept distinct from shipped, coded projects
+
+**Interaction**: hover darkens and slightly scales the screenshot and fades in a "See Live Design" label, matching the lift/glow hover language used by `.card` and `.project-card`. Each `liveUrl` should point to a Figma **prototype** link (`figma.com/proto/...`), not the file/edit link — this keeps portfolio visitors view-only with no access to the underlying canvas.
+
 ---
 
 ## 7. Responsive Design Strategy
@@ -350,7 +360,7 @@ The card patterns and grid layouts are designed to extract into reusable compone
 
 ### Image Optimization
 
-Large images were the primary performance bottleneck. The `scripts/optimize-images.js` script compresses images to 80% quality with palette optimization for PNGs.
+Large images were the primary performance bottleneck. The `scripts/optimize-images.js` script (sharp) resizes to a 1200px max dimension and recompresses PNG/JPEG in place; `optimize-images.ps1` is a Windows/no-Node fallback.
 
 **Before Optimization**:
 - `signup-form-screenshot.png`: 1.3 MB → 83.2 KB (53% reduction after resize)
@@ -358,18 +368,20 @@ Large images were the primary performance bottleneck. The `scripts/optimize-imag
 - `revastech-screenshot.png`: 735 KB → 128 KB (82% reduction)
 - `abdul profile2.png`: 1.6 MB → 268.6 KB (83% reduction)
 
+**2026-07 update**: both scripts now also cover `assets/figma img/` — the Figma design screenshots added for the new "Figma Designs" section were previously outside the optimization pipeline entirely. Run `npm run optimize-images` after adding new screenshots to either folder.
+
 ### CSS Optimizations
 
-- Replaced multi-line CSS with minified single-line properties
+- Replaced multi-line CSS with minified single-line properties (via `npm run css:build` — note this rewrites `style.css` in place with no separate `dist` file, so only run it on a copy/branch you're ready to stop hand-editing)
 - Combined duplicate selectors
 - Used `media="print" onload"` for font-awesome to prevent render-blocking
+- **2026-07**: removed ~45 lines of dead/duplicate CSS (a repeated `.card.glass` block, a repeated contact-form validation block, and a repeated `[data-theme="light"] .project-card:hover .project-badge` line) that had accumulated from patches re-declaring rules instead of editing them in place. No visual change — the later declaration was already winning the cascade in each case.
 
 ### Future Enhancements
 
 - Convert images to WebP format for modern browsers
-- Add image width/height attributes for CLS (Cumulative Layout Shift)
+- ~~Add image width/height attributes for CLS~~ — done for the hero/profile images (explicit `width`/`height` + `<link rel="preload" as="image">` on the LCP image) and for grid images (`aspect-ratio` reserved on the container, which achieves the same result for responsive grids)
 - Implement font-display swap for Inter font
-- Add `rel="preload"` for hero image
 - Minify JavaScript files
 
 ---
@@ -384,4 +396,4 @@ Large images were the primary performance bottleneck. The `scripts/optimize-imag
 
 ---
 
-*Document created June 2026 — Reflecting on the deliberate choices that shaped this portfolio.*
+*Document created June 2026, last revised July 2026 — Reflecting on the deliberate choices that shaped this portfolio.*

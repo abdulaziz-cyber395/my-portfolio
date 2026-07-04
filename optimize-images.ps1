@@ -1,9 +1,17 @@
 # Image Optimization Script for Portfolio
 # Compresses large images to improve website performance
+#
+# NOTE: `npm run optimize-images` (scripts/optimize-images.js, uses sharp) is
+# now the primary/recommended tool and also covers assets/figma img. This
+# PowerShell version is kept for Windows users without Node, and has been
+# fixed to point at the correct project path below.
 
 Add-Type -AssemblyName System.Drawing
 
-$imagesFolder = "C:\Users\Abdul Aziz\Desktop\portfolio\assets\images"
+$imagesFolders = @(
+    "C:\Users\Abdul Aziz\Desktop\my-portfolio\assets\images",
+    "C:\Users\Abdul Aziz\Desktop\my-portfolio\assets\figma img"
+)
 $maxDimension = 1200
 $jpegQuality = 85
 $pngCompressionLevel = 9
@@ -97,11 +105,17 @@ function Optimize-Image {
     }
 }
 
-$imageFiles = Get-ChildItem -Path $imagesFolder -Include *.jpg, *.jpeg, *.png, *.webp -Recurse
+foreach ($folder in $imagesFolders) {
+    if (-not (Test-Path $folder)) {
+        Write-Host "SKIP (not found): $folder" -ForegroundColor Gray
+        continue
+    }
 
-Write-Host "Optimizing images in $imagesFolder`n"
-foreach ($file in $imageFiles) {
-    Optimize-Image -FilePath $file.FullName
+    $imageFiles = Get-ChildItem -Path $folder -Include *.jpg, *.jpeg, *.png, *.webp -Recurse
+    Write-Host "`nOptimizing images in $folder`n"
+    foreach ($file in $imageFiles) {
+        Optimize-Image -FilePath $file.FullName
+    }
 }
 
 Write-Host "`nImage optimization complete!"

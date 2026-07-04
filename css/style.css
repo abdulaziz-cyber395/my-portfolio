@@ -128,8 +128,8 @@ button, input, textarea { font: inherit; }
 [data-theme="light"] .card { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6); }
 .card:hover { transform: translateY(-4px); border-color: rgba(110, 231, 183, 0.28); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(110, 231, 183, 0.08); }
 [data-theme="light"] .card:hover { border-color: rgba(5, 150, 105, 0.2); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(5, 150, 105, 0.08); }
-.card.glass { background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); }
-[data-theme="light"] .card.glass { background: rgba(255, 255, 255, 0.65); border: 1px solid rgba(0, 0, 0, 0.08); }
+.card.glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+[data-theme="light"] .card.glass { background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(0, 0, 0, 0.08); }
 
 .content-wrapper { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr); gap: 1.4rem; align-items: stretch; }
 .about-text { padding: clamp(1.35rem, 3vw, 2rem); }
@@ -163,6 +163,20 @@ button, input, textarea { font: inherit; }
 .project-link:focus-visible { outline: 2px solid rgba(110, 231, 183, 0.6); outline-offset: 3px; }
 
 .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; }
+
+.figma-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; }
+.figma-card { display: flex; flex-direction: column; position: relative; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), border-color 280ms ease, box-shadow 280ms ease; }
+.figma-card:hover, .figma-card:focus-visible { transform: translateY(-5px); border-color: rgba(110, 231, 183, 0.22); box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(110, 231, 183, 0.06); }
+[data-theme="light"] .figma-card:hover, [data-theme="light"] .figma-card:focus-visible { border-color: rgba(5, 150, 105, 0.25); box-shadow: 0 28px 70px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(5, 150, 105, 0.08); }
+.figma-card:focus-visible { outline: 2px solid rgba(110, 231, 183, 0.6); outline-offset: 3px; }
+.figma-card-image { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--surface); }
+.figma-card-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), filter 400ms ease; }
+.figma-card:hover .figma-card-image img, .figma-card:focus-visible .figma-card-image img { transform: scale(1.05); filter: saturate(1.05) brightness(0.45); }
+.figma-card-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; opacity: 0; background: linear-gradient(180deg, rgba(6, 10, 8, 0.1), rgba(6, 10, 8, 0.78)); color: #fff; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em; transition: opacity 280ms ease; }
+.figma-card:hover .figma-card-overlay, .figma-card:focus-visible .figma-card-overlay { opacity: 1; }
+.figma-card-overlay i { color: var(--accent); font-size: 0.95rem; }
+.figma-card-title { padding: 0.9rem 1.1rem; border-top: 1px solid var(--border); color: var(--text); font-size: 0.92rem; font-weight: 660; line-height: 1.35; transition: color 280ms ease; }
+.figma-card:hover .figma-card-title, .figma-card:focus-visible .figma-card-title { color: var(--accent); }
 
 .tech-tag, .skill-tag { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 30px; padding: 0.34rem 0.65rem; border: 1px solid rgba(110, 231, 183, 0.18); border-radius: 999px; background: rgba(110, 231, 183, 0.07); color: #a7f3d0; font-size: 0.78rem; font-weight: 680; transition: all 240ms ease; }
 [data-theme="light"] .tech-tag, [data-theme="light"] .skill-tag { background: rgba(5, 150, 105, 0.08); border-color: rgba(5, 150, 105, 0.2); color: #047857; }
@@ -274,23 +288,17 @@ button, input, textarea { font: inherit; }
 .form-group input:focus, .form-group textarea:focus { border-color: rgba(110, 231, 183, 0.48); background: rgba(0, 0, 0, 0.58); box-shadow: 0 0 0 4px rgba(110, 231, 183, 0.08); outline: none; }
 [data-theme="light"] .form-group input:focus, [data-theme="light"] .form-group textarea:focus { background: rgba(0, 0, 0, 0.02); }
 .form-group textarea { min-height: 145px; resize: vertical; padding-right: 0.95rem; }
-.validation-icon { position: absolute; right: 0.75rem; top: 2.65rem; font-size: 0.9rem; opacity: 0; transition: opacity 200ms ease; pointer-events: none; }
+.validation-icon { position: absolute; right: 0.75rem; top: 2.6rem; font-size: 0.9rem; opacity: 0; transition: opacity 200ms ease; pointer-events: none; }
 .form-group.valid .validation-icon.valid-icon { opacity: 1; color: var(--accent); }
 .form-group.invalid .validation-icon.invalid-icon { opacity: 1; color: #f43f5e; }
 .form-group.invalid input, .form-group.invalid textarea { border-color: rgba(244, 63, 94, 0.5); }
 .form-group.valid input, .form-group.valid textarea { border-color: rgba(110, 231, 183, 0.5); }
 [data-theme="light"] .form-group.valid input, [data-theme="light"] .form-group.valid textarea { border-color: rgba(5, 150, 105, 0.5); }
-.char-counter { position: absolute; right: 0.5rem; bottom: -1.4rem; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; pointer-events: none; }
+.char-counter { position: absolute; right: 0.5rem; bottom: -1.5rem; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; pointer-events: none; }
 
 @media (max-width: 760px) {
   .validation-icon { top: 2.5rem; }
   .form-group input, .form-group textarea { padding-right: 2.5rem; }
-}
-
-@media (max-width: 520px) {
-  .form-group input, .form-group textarea { padding-right: 2.5rem; }
-  .validation-icon { right: 0.75rem; top: 2.4rem; font-size: 0.85rem; }
-  .char-counter { right: 0.5rem; bottom: -1.3rem; }
 }
 
 .contact-form-card .btn { width: 100%; margin-top: 1rem; }
@@ -351,7 +359,6 @@ button, input, textarea { font: inherit; }
 [data-theme="light"] .project-badge { background: rgba(255, 255, 255, 0.9); border-color: rgba(5, 150, 105, 0.2); color: #047857; }
 .project-card:hover .project-badge { background: rgba(110, 231, 183, 0.15); border-color: rgba(110, 231, 183, 0.4); color: var(--accent); box-shadow: 0 4px 16px rgba(110, 231, 183, 0.15); }
 [data-theme="light"] .project-card:hover .project-badge { background: rgba(5, 150, 105, 0.12); border-color: rgba(5, 150, 105, 0.35); color: #047857; box-shadow: 0 4px 16px rgba(5, 150, 105, 0.1); }
-[data-theme="light"] .project-card:hover .project-badge { background: rgba(5, 150, 105, 0.12); border-color: rgba(5, 150, 105, 0.35); box-shadow: 0 4px 16px rgba(5, 150, 105, 0.1); }
 .project-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
 .project-stat { font-size: 0.78rem; color: var(--accent); background: rgba(110, 231, 183, 0.07); padding: 0.28rem 0.55rem; border-radius: 4px; font-weight: 600; }
 [data-theme="light"] .project-stat { background: rgba(5, 150, 105, 0.08); }
@@ -706,56 +713,6 @@ button, input, textarea { font: inherit; }
   background: rgba(0, 0, 0, 0.06);
 }
 
-/* Glassmorphism Enhancement for Cards */
-.card.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="light"] .card.glass {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* Contact Form Enhancements */
-.form-group {
-  position: relative;
-}
-.char-counter {
-  position: absolute;
-  right: 0.5rem;
-  bottom: -1.5rem;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-.validation-icon {
-  position: absolute;
-  right: 0.75rem;
-  top: 2.6rem;
-  font-size: 0.9rem;
-  opacity: 0;
-  transition: opacity 200ms ease;
-}
-.form-group.valid .validation-icon.valid-icon {
-  opacity: 1;
-  color: var(--accent);
-}
-.form-group.invalid .validation-icon.invalid-icon {
-  opacity: 1;
-  color: #f43f5e;
-}
-.form-group.invalid input,
-.form-group.invalid textarea {
-  border-color: rgba(244, 63, 94, 0.5);
-}
-.form-group.valid input,
-.form-group.valid textarea {
-  border-color: rgba(110, 231, 183, 0.5);
-}
-
 /* Keyboard Shortcuts Modal */
 .shortcuts-modal {
   position: fixed;
@@ -830,6 +787,7 @@ kbd {
   .hero { min-height: auto; }
   .hero-image { justify-content: flex-start; }
   .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .figma-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .approach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .skills-wrapper { grid-template-columns: 1fr; }
   .nav-links { position: absolute; top: 100%; left: 1rem; right: 1rem; display: none; align-items: stretch; flex-direction: column; gap: 0.15rem; border-radius: var(--radius); background: rgba(10, 10, 10, 0.96); box-shadow: var(--shadow); }
@@ -854,7 +812,7 @@ kbd {
   .intro-with-badge { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .newsletter-input { flex-direction: column; }
   .btn, .project-link { width: 100%; }
-  .projects-grid, .approach-grid, .form-row, .footer-content { grid-template-columns: 1fr; }
+  .projects-grid, .figma-grid, .approach-grid, .form-row, .footer-content { grid-template-columns: 1fr; }
   .project-detail-header { grid-template-columns: 1fr; gap: 1.5rem; }
   .project-badge { top: 0.5rem; right: 0.5rem; }
   .project-meta { gap: 0.35rem; }

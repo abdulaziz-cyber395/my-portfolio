@@ -141,12 +141,14 @@
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> docs.css</div>
               <div class="file-tree-item"><i class="fa-solid fa-folder"></i> js/</div>
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> projects-data.js <strong>edit this for projects</strong></div>
+              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> figma-designs.js <strong>edit this for Figma designs</strong></div>
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> resume-data.js <strong>edit this for resume</strong></div>
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> script.js</div>
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> resume.js</div>
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> docs.js</div>
               <div class="file-tree-item"><i class="fa-solid fa-folder"></i> assets/</div>
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-folder"></i> images/</div>
+              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-folder"></i> figma img/</div>
               <div class="file-tree-item file-tree-child"><i class="fa-solid fa-folder"></i> icons/</div>
             </div>
           </div>
@@ -368,6 +370,23 @@
             <p><strong>Social links:</strong> in the Contact section of <code>index.html</code>.</p>
             <p><strong>Project links</strong> (live demo, GitHub): in <code>js/projects-data.js</code>.</p>
             <p><strong>Navigation links:</strong> in the <code>&lt;nav&gt;</code> at the top of <code>index.html</code> and <code>projects.html</code>.</p>
+          </div>
+
+          <div class="content-card full-width">
+            <h3>Add or Update a Figma Design</h3>
+            <p>The "Figma Designs" grid on the homepage works exactly like the projects grid: save a screenshot, add an entry to a data file, refresh.</p>
+            <ol>
+              <li>Save the screenshot to <code>assets/figma img/</code></li>
+              <li>Open <code>js/figma-designs.js</code> and copy an existing entry</li>
+              <li>Update <code>title</code> and <code>image</code></li>
+              <li>Set <code>liveUrl</code> to the design's Figma <strong>prototype</strong> link, not the file link</li>
+            </ol>
+            <div class="pro-tip">
+              <i class="fa-solid fa-lock"></i>
+              <div>
+                <strong>Keep visitors view-only:</strong> in Figma, open the prototype and use the <strong>"Share prototype"</strong> button (not the regular Share button) to copy a link like <code>figma.com/proto/...</code>. Keep the permission dropdown on <strong>"can view"</strong> — that already blocks editing. For extra protection against people duplicating or exporting the file, go to Share → Advanced and turn off "Viewers can copy, share, and export from this file" (requires a paid Figma plan).
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -633,7 +652,7 @@
       <footer class="docs-footer">
         <div class="footer-content">
           <p>Built simply on purpose. If something here is unclear, just open the file and read it — the code is the best documentation.</p>
-          <p style="margin-top: 0.5rem; opacity: 0.6;">Last updated: June 2026</p>
+          <p style="margin-top: 0.5rem; opacity: 0.6;">Last updated: July 2026</p>
         </div>
       </footer>
     </main>

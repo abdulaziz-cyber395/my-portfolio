@@ -2,437 +2,207 @@
 
 ## Project Overview
 
-This is a modern, responsive portfolio website built with vanilla HTML, CSS, and JavaScript. The design system uses fluid typography and spacing with CSS custom properties for consistent scaling across all viewport sizes.
+A vanilla HTML/CSS/JS portfolio — no framework, no build step. Content for projects, the resume, and the Figma showcase is data-driven (JS arrays rendered into the DOM), so most updates only require editing a data file, not touching markup.
+
+> For a friendlier, task-oriented version of this guide (written for future-you, not for other developers), see `documentation.html` — it's also linked from the site footer.
 
 ---
 
 ## Project Structure
 
 ```
-portfolio/
-├── index.html              # Main HTML file
+my-portfolio/
+├── index.html              # Homepage (hero, about, education, projects, figma designs, approach, skills, contact)
+├── projects.html            # Full project detail pages (filterable)
+├── resume.html               # Auto-generated resume — do not hand-edit, it's rendered from data files
+├── documentation.html        # In-app maintenance guide (see css/docs.css, js/docs.js)
 ├── css/
-│   ├── main.css           # Design system variables and global styles
-│   ├── layout.css         # Layout, sections, and component styles
-│   └── responsive.css     # Media query breakpoints
+│   ├── style.css            # Every design token + all component/layout styles for the main site
+│   └── docs.css             # Styles for documentation.html only
 ├── js/
-│   └── script.js          # Navigation toggle and interactions
-└── assets/
-    ├── images/
-    │   └── profile.png    # Profile photo
-    └── icons/
-        └── favicon.ico
+│   ├── projects-data.js     # Single source of truth for projects — feeds index.html, projects.html AND resume.html
+│   ├── figma-designs.js     # Figma design showcase grid (index.html) — same array+render pattern as projects
+│   ├── resume-data.js       # Personal info, skills, education for resume.html
+│   ├── resume.js            # Merges projects-data.js + resume-data.js and renders resume.html
+│   ├── script.js            # Shared interactions: theme toggle, nav, scroll spy, reveal animations, filtering, contact form
+│   └── docs.js               # documentation.html interactions (sidebar nav, mobile toggle)
+├── assets/
+│   ├── images/                # Project screenshots + profile photos
+│   ├── figma img/              # Figma design screenshots (used by js/figma-designs.js)
+│   └── icons/favicon.ico
+├── scripts/
+│   ├── optimize-images.js    # Compresses assets/images + assets/figma img (sharp) — npm run optimize-images
+│   └── minify-css.js         # Strips whitespace/comments from style.css in place — npm run css:build
+├── optimize-images.ps1       # PowerShell fallback for the image script (Windows, no Node required)
+└── send_email.php            # Not currently wired to the contact form (see below)
 ```
+
+**Note on the contact form:** the form in `index.html` posts to Formsubmit (`action="https://formsubmit.co/..."`), not `send_email.php`. If you intend to use the PHP mailer instead, you'll need to update the form's `action` and host it somewhere PHP runs (Formsubmit and GitHub Pages/Netlify/Vercel static hosting won't execute it).
 
 ---
 
 ## CSS Architecture
 
-### 1. main.css - Design Tokens
+Everything lives in **`css/style.css`** — one file, organized top-to-bottom by section (base resets → navbar → hero → cards/grids → forms → footer → responsive breakpoints at the bottom).
 
-Defines all CSS custom properties (variables). This is your single source of truth for design decisions.
+### Design tokens (`:root`)
 
-**Importance:** Always add new design tokens here first. All other CSS files reference these variables.
+| Variable | Value (dark) | Usage |
+|---|---|---|
+| `--background` | `#060a08` | Page background |
+| `--surface` | `#0c1210` | Slightly raised surfaces (inputs, icon chips) |
+| `--card` | `#101a16` | Card backgrounds |
+| `--border` / `--border-strong` | translucent white | Default / emphasized borders |
+| `--text` / `--text-secondary` / `--text-muted` | `#edf2f0` / `#9caea8` / `#5f736b` | Text hierarchy |
+| `--accent` / `--accent-deep` | `#6ee7b7` / `#34d399` | Buttons, links, focus rings, highlights |
+| `--radius` | `6px` | Standard corner radius |
+| `--container` | `1100px` | Max content width |
 
-### 2. layout.css - Layout & Components
+`[data-theme="light"]` on `<html>` swaps these to a light palette (accent becomes `#059669`). The toggle button in the navbar flips `data-theme` and persists the choice to `localStorage` (see `script.js`).
 
-Contains all structural styles, component styling, and layout rules. Organizes styles by section and component type.
+### Typography
 
-### 3. responsive.css - Breakpoints
+**Inter** (400/500/600) via Google Fonts, with `preconnect` + `preload` in `<head>` and a system-font fallback stack. There is no separate heading font — headings use the same family at higher weight.
 
-Mobile-first approach. Defines breakpoints using `@media` queries that override base styles from main.css and layout.css.
+### Grid layouts
 
----
-
-## Spacing System (Simplified)
-
-The spacing system uses **8 values** with intuitive names. Each is a fluid `clamp()` that scales smoothly between min/max values.
-
-### Spacing Scale
-
-| Variable | Min → Max | Range | When to Use |
-|----------|-----------|-------|-------------|
-| `--space-2xs` | 0.25rem → 0.5rem | 4–8px | Tiny gaps, icon spacing, border widths |
-| `--space-xs` | 0.5rem → 1rem | 8–16px | Paragraph margins, input padding, tight gaps |
-| `--space-sm` | 0.75rem → 1.25rem | 12–20px | Between related elements, button padding, card padding |
-| `--space-md` | 1rem → 1.5rem | 16–24px | Standard spacing, form field padding, section headers |
-| `--space-lg` | 1.5rem → 2rem | 24–32px | Between major sections, card margins, grid gaps |
-| `--space-xl` | 2rem → 2.5rem | 32–40px | Container padding, component separation |
-| `--space-2xl` | 3rem → 3rem | 48px | Large grid gaps (About section, feature grids) |
-| `--space-3xl` | 4rem → 4rem | 64px | **Section vertical padding** (all `<section>` padding) |
-
-### Quick Reference
+Every content grid follows the same convention: 3 columns on desktop, 2 at `≤1080px`, 1 at `≤760px`.
 
 ```css
-/* Vertical spacing hierarchy */
-section               { padding: var(--space-3xl) 0; }  /* 64px */
-.about-content        { gap: var(--space-xl); }         /* 32-40px */
-.project-card         { padding: var(--space-lg); }     /* 24-32px */
-.hero-buttons         { gap: var(--space-xs); }         /* 8-16px */
-p, h1, h2, h3         { margin-bottom: var(--space-xs); }
-nav ul                { gap: var(--space-lg); }         /* 24-32px */
-```
-
-### Adding New Spacing
-
-If you need a spacing value not covered:
-
-**Option A (Recommended):** Combine existing tokens
-```css
-.element {
-  margin: var(--space-md) var(--space-lg); /* horizontal and vertical differ */
-}
-```
-
-**Option B (Rarely needed):** Create a new token in `:root` in main.css
-```css
---space-4xl: clamp(5rem, 10vw, 6rem);
-```
-Then document why you needed it.
-
----
-
-## Color Palette
-
-| Variable | Hex / HSL | Usage |
-|----------|-----------|-------|
-| `--bg-page` | `hsl(222, 47%, 7%)` | Page background (darkest) |
-| `--bg-section-alt` | `hsl(222, 35%, 12%)` | Alternate section backgrounds |
-| `--bg-card` | `hsl(222, 30%, 16%)` | Cards, inputs, nav |
-| `--text-primary` | `hsl(210, 40%, 98%)` | Main text, headings |
-| `--text-secondary` | `hsl(215, 20%, 65%)` | Body text, muted content |
-| `--accent-green` | `hsl(155, 65%, 45%)` | Primary CTA buttons, links, borders |
-| `--accent-hover` | `hsl(155, 65%, 52%)` | Hover states (12% lighter) |
-| `--accent-soft` | `hsl(155, 55%, 70%)` | Subtle accents (rare) |
-
-**Color contrast ratios:** All text meets WCAG AA standards (4.5:1 minimum).
-
----
-
-## Typography
-
-### Fonts
-- **Space Grotesk:** Headings (h1, h2, h3), bold display text
-- **Manrope:** Body text, UI elements, forms
-
-### Fluid Type Scale
-
-All font sizes use `clamp(min, preferred, max)` for smooth scaling:
-
-| Variable | Example at 320px | Example at 1920px | Fixed Range |
-|----------|-----------------|------------------|-------------|
-| `--font-size-h1` | 2rem | 3rem | 32–48px |
-| `--font-size-h2` | 1.5rem | 2.25rem | 24–36px |
-| `--font-size-h3` | 1.25rem | 1.75rem | 20–28px |
-| `--font-size-body` | 1rem | 1.125rem | 16–18px |
-
-**Line heights:**
-- Headings: `--line-height-heading` = 1.2
-- Body: `--line-height-body` = 1.5
-
----
-
-## Layout Patterns
-
-### Container
-```css
-.container {
-  max-width: clamp(300px, 90vw, 1200px);
-  margin: 0 auto;
-  padding: 0 var(--space-xs);
-}
-```
-**Use:** Wrap all section content in `<div class="container">`.
-
-### Grid Layouts
-
-**Three-column grid** (Projects):
-```css
-.projects-grid {
+.projects-grid,      /* Selected Projects, index.html */
+.figma-grid {         /* Figma Designs, index.html */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.15rem;
 }
 ```
 
-**Two-column grid** (About):
-```css
-.about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
-}
-```
+When adding a new grid section, add its class name alongside `.projects-grid`/`.figma-grid` in both the `1080px` and `760px` media query blocks near the bottom of `style.css` — don't create a new standalone breakpoint block.
 
-**Four-column grid** (Skills):
-```css
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-sm);
-}
-```
+### Responsive breakpoints
+
+| Breakpoint | Applies |
+|---|---|
+| `1080px` | Grids drop to 2 columns; mobile nav drawer takes over from the pill nav |
+| `760px` | Grids drop to 1 column; hamburger menu appears; hero stacks |
+| `520px` | Buttons/links go full-width; tighter section padding |
 
 ---
 
-## Responsive Breakpoints
+## Data-Driven Content
 
-| Breakpoint | Max Width | Styles Applied |
-|------------|-----------|----------------|
-| Desktop | 1024px+ | 3-col projects, 4-col skills |
-| Tablet | 860px | Stack hero & about to single column |
-| Mobile | 768px | Single column projects & skills, reduced section padding |
-| Small Mobile | 480px | Tighter container padding, smaller avatars |
+This is the core pattern of the codebase — **content lives in JS arrays, not HTML**, and a small render function injects markup into a container `<div>` on `DOMContentLoaded`.
 
-**Mobile-first:** Start with base styles (mobile), then add `@media (max-width: ...)` overrides for larger screens.
+### Projects (`js/projects-data.js`)
+
+The `projects` array is the single source of truth. Adding a project here automatically:
+- Adds a card to the homepage grid (`renderProjectCards`)
+- Adds a full detail section to `projects.html` (`renderProjectDetails`)
+- Adds an entry to the auto-generated resume (`resume.js` reads this same array)
+
+Template:
+```js
+{
+  id: "my-project",
+  number: "06",
+  title: "My Project",
+  summary: "One sentence about what it does and who it helps.",
+  category: "interactive", // educational | corporate | design-system | interactive | form-design
+  image: "assets/images/my-project.png",
+  tech: ["HTML", "CSS", "JavaScript"],
+  liveUrl: "#",              // "#" hides the live-demo link on the resume
+  githubUrl: "https://github.com/yourusername/your-repo",
+  details: [
+    { heading: '<i class="fa-solid fa-bullseye"></i> The Real Problem', content: "<p>...</p>" },
+    { heading: '<i class="fa-solid fa-lightbulb"></i> Key Solutions Delivered', list: ["Point one: detail.", "Point two: detail."] }
+  ]
+}
+```
+Rendered `<img>` tags use `width="320" height="180" loading="lazy"` — keep new screenshots close to a 16:9 ratio so they don't look stretched inside `.project-image` (`aspect-ratio: 16/10`).
+
+### Figma Designs (`js/figma-designs.js`)
+
+Same pattern, simpler shape — powers the "Figma Designs" grid on `index.html`:
+```js
+{
+  id: "figma-design-8",
+  title: "Descriptive Title — What It Is",
+  image: "assets/figma img/your-screenshot.png",
+  liveUrl: "https://www.figma.com/proto/..." // prototype link, see note below
+}
+```
+
+**Important — use a prototype link, not a file link.** Copy the link from the **"Share prototype"** button inside the prototype viewer (`figma.com/proto/...`), not the regular file/edit link. Prototype-only links let visitors click through the design with no access to the canvas or layers. Keep the share permission on **"can view"** (view-only already blocks editing); optionally disable "Viewers can copy, share, and export from this file" under Share → Advanced for extra protection against duplication (paid Figma plans).
+
+Hover state ("See Live Design") and the darken/scale effect live in `style.css` under `.figma-card`, `.figma-card-image`, `.figma-card-overlay`.
+
+### Resume (`js/resume-data.js` + `js/resume.js`)
+
+`resume-data.js` holds everything NOT already covered by projects: name, title, contact info, summary, skills (technical/learning/soft), education. `resume.js` merges this with the `projects` array and renders `resume.html` — you never hand-edit `resume.html`.
 
 ---
 
-## Component Library
+## Script Loading Order
 
-### Buttons
-```html
-<a href="#" class="btn">Primary</a>
-<a href="#" class="btn btn-secondary">Secondary</a>
-```
-**Styles:**
-- Primary: Green background, white text
-- Secondary: Transparent, green border
-- Padding: `var(--space-xs) var(--space-lg)`
-- Radius: `var(--radius-md)`
+| Page | Order | Why |
+|---|---|---|
+| `index.html` | `projects-data.js` → `figma-designs.js` → `script.js` | Data files register `DOMContentLoaded` renderers; `script.js` handles interactions/animations after |
+| `projects.html` | `projects-data.js` → `script.js` | Renders full project details + filtering |
+| `resume.html` | `projects-data.js` → `resume-data.js` → `resume.js` → `script.js` | `resume.js` needs both data sources loaded first |
+| `documentation.html` | `docs.js` | Self-contained, no shared data |
 
-### Cards (Projects)
-```html
-<article class="card project-card">
-  <div class="project-image">
-    <img src="assets/images/project-screenshot.png" alt="Project screenshot">
-  </div>
-  <h3>Project Title</h3>
-  <p>Description...</p>
-  <div class="project-tech">
-    <span class="tech-tag">React</span>
-  </div>
-  <div class="project-links">
-    <a href="#" class="project-link primary">Live Demo</a>
-    <a href="#" class="project-link secondary">GitHub</a>
-  </div>
-</article>
-```
-**Structure:**
-- `.project-image` container first (top of card)
-- Image: 100% width, 180px height (160px mobile, 140px small mobile), `object-fit: cover`
-- Hover effect: slight zoom on image
-- Title (`h3`), description (`p`), tech tags, links below
-- Padding: `var(--space-lg)`
-- Gap between elements: `var(--space-xs)`
-**Card padding:** `var(--space-lg)`  
-**Card gap:** `var(--space-xs)` between description and tech tags
+All scripts are plain (non-module) `<script>` tags at the end of `<body>`. Rendering happens inside `DOMContentLoaded` listeners — if you add a new dynamically-rendered element and want it to participate in the scroll-reveal fade-in (`script.js`'s `revealTargets`), note that top-level `querySelectorAll` calls in `script.js` run *before* those elements exist (same reason `.project-card` doesn't currently get the fade-in either). This is a pre-existing quirk, not something new sections need to solve individually.
 
-### Skill Chips
-```html
-<span class="skill-chip">React</span>
-```
-- Background: `var(--bg-section-alt)`
-- Padding: `var(--space-md)`
-- Hover: Green border & text
+---
 
-### Form Inputs
-```css
-input, textarea {
-  padding: var(--space-md);
-  border: var(--border-thin) solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  color: var(--text-primary);
-}
-input:focus {
-  border-color: var(--accent-green);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
-}
-```
+## Performance Conventions
+
+- **Images:** run `npm run optimize-images` before committing new screenshots (compresses `assets/images` and `assets/figma img` via `sharp` — resizes to a max of 1200px on the longest side, recompresses PNG/JPEG in place). A PowerShell equivalent (`optimize-images.ps1`) exists for Windows users without Node.
+- **Layout shift:** grid images use a fixed `aspect-ratio` on their container (`.project-image`, `.figma-card-image`) so space is reserved before the image loads; standalone images (hero, about) carry explicit `width`/`height` attributes instead.
+- **Lazy loading:** every image below the fold uses `loading="lazy"`. The hero/profile image is the exception — it's the LCP element, so it uses `fetchpriority="high"` plus a matching `<link rel="preload" as="image">` in `<head>`, and is never lazy-loaded.
+- **Fonts/icons:** Google Fonts are preconnected + preloaded; Font Awesome is loaded with the `media="print" onload="this.media='all'"` trick so it doesn't block first render.
+- **CSS:** `npm run css:build` (`scripts/minify-css.js`) strips comments/whitespace from `style.css` **in place** — there is no separate `dist` file. Only run this right before deploying a snapshot you don't intend to keep editing; run it on a copy/branch if you want to preserve the readable source for future edits.
 
 ---
 
 ## Adding a New Section
 
-1. **HTML:** Add section in `index.html` before `</main>`
-```html
-<section id="new-section">
-  <div class="container">
-    <h2>Section Title</h2>
-    <!-- Content -->
-  </div>
-</section>
-```
-
-2. **CSS:** Add background color in `layout.css` (alternate between `--bg-section-alt` and `--bg-card`):
-```css
-#new-section {
-  background-color: var(--bg-card);
-}
-```
-
-3. **Spacing:** Sections automatically get:
-   - Vertical padding: `var(--space-3xl)` (defined in base `section` rule)
-   - Bottom border: `var(--border-thin)` (for separation)
-
-4. **Responsive:** No extra work needed unless layout changes at breakpoints.
-
----
-
-## Media Query Best Practices
-
-- **Order matters:** Base styles first, then `@media` overrides (max-width mobile-first)
-- **Use spacing tokens inside media queries:**
-```css
-@media (max-width: 768px) {
-  section { padding: var(--space-3xl) 0; } /* ✅ uses token */
-}
-```
-- **Avoid fixed pixels** except for very specific design constraints (avatar sizes, image max-widths).
-
----
-
-## Background Colors & Visual Separation
-
-Sections alternate between two background colors for visual rhythm:
-
-```css
-/* Even sections: var(--bg-section-alt) - slightly lighter */
-#hero, #projects, #contact { background: var(--bg-section-alt); }
-
-/* Odd sections: inherit from body (var(--bg-page)) or var(--bg-card) */
-#about, #skills, footer { background: var(--bg-card); }
-```
-
-Every section has a `border-bottom` (except last) to add subtle separation.
-
----
-
-## Image Guidelines
-
-| Image | Size | Shape | Border |
-|-------|------|-------|--------|
-| Profile photo (About) | `var(--avatar-size)` | `border-radius: 50%` | `var(--border-thickest) solid var(--accent-green)` |
-| Project screenshots | 180px height (responsive) | `border-radius: var(--radius-md)` | No border (image fills card width) |
-
-**Project images:**
-- Aspect ratio: 16:9 (e.g., 800×450px)
-- Sizing: `width: 100%`, `height: 180px`, `object-fit: cover`
-- Location: First child inside `.project-card`
-- Hover: subtle scale effect (1.03×)
-
----
-
-## JavaScript
-
-**Current:** Only one script - mobile navigation toggle in `js/script.js`.
-
-**To add more JS:**
-1. Create a new file in `js/` (e.g., `form-handler.js`)
-2. Import at bottom of `index.html` before `</body>`
-3. Use `DOMContentLoaded` event listener:
-```js
-document.addEventListener('DOMContentLoaded', () => {
-  // Your code
-});
-```
+1. **HTML** — in `index.html`, follow the existing pattern: `<section id="..." class="section">` → `.container` → `.section-title` → content.
+2. **Nav link** — add a matching `<li><a href="#your-id">Label</a></li>` in `#main-nav`.
+3. **CSS** — style it in `style.css`, near a similar existing component.
+4. **Scroll spy** — nothing extra needed; `script.js` matches nav links to sections by `id` automatically.
 
 ---
 
 ## Browser Support
 
-- Modern browsers (Chrome, Firefox, Safari, Edge) - last 2 versions
-- CSS custom properties, `clamp()`, CSS Grid, Flexbox
-- No IE11 support (intentional, modern-only)
-
----
-
-## Performance Checklist
-
-- ✅ All images optimized (PNG compressed, consider WebP)
-- ✅ No external CSS frameworks (minimal file size)
-- ✅ System fonts loaded via Google Fonts with proper preconnect
-- ✅ Minimal JavaScript (no jQuery)
-- ✅ CSS contained in 3 files for easy caching
+Modern evergreen browsers (Chrome, Firefox, Safari, Edge — last 2 versions). Relies on CSS Grid, `clamp()`, `aspect-ratio`, and custom properties. No IE11 support (intentional).
 
 ---
 
 ## Common Tasks
 
-### Change accent color
-Edit `--accent-green` HSL value in `main.css :root`. All buttons, links, borders update automatically.
+**Change the accent color** — edit `--accent` (and `--accent-deep`) in `style.css` `:root`, plus the light-theme equivalents under `[data-theme="light"]`.
 
-### Adjust section spacing
-Modify `--space-3xl` value (section padding). Change in one place, updates everywhere.
+**Add a project** — edit `js/projects-data.js` (see template above). It appears on the homepage, `projects.html`, and the resume automatically.
 
-### Add new project card
-Copy existing `.project-card` HTML block in `index.html` → update title, description, tech tags.
+**Add a Figma design** — edit `js/figma-designs.js`, use a prototype link for `liveUrl` (see note above).
 
-### Modify breakpoints
-Edit media query widths in `responsive.css`. Spacing inside breakpoints uses tokens, no math needed.
-
-### Change navbar height
-Update `--navbar-height` token. Also adjust mobile drawer `right` position if needed.
-
----
-
-## Code Style
-
-- **Indentation:** 2 spaces (consistent across HTML, CSS, JS)
-- **Semicolons:** Required in CSS
-- **Quotes:** Double quotes in HTML, single in JS
-- **Naming:** kebab-case for classes, BEM-lite (block__element--modifier) for components
-- **Comments:** Brief comments above sections in CSS, inline HTML comments for structure
-
----
-
-## Git Workflow
-
-```bash
-# Feature branch
-git checkout -b feature/new-section
-
-# After changes
-git add .
-git commit -m "Add testimonials section with carousel"
-
-# Push & PR
-git push origin feature/new-section
-```
-
-**Commit message format:** Action + description (imperative mood).  
-Examples: "Add contact form validation", "Fix hero spacing on mobile", "Update project descriptions".
+**Adjust breakpoints** — the three `@media` blocks near the bottom of `style.css` (`1080px`, `760px`, `520px`) are the canonical ones; there are a couple of small early standalone media queries for form-field spacing specifically — leave those alone unless you're touching the contact form.
 
 ---
 
 ## Troubleshooting
 
-**Spacing looks wrong on one screen size?**  
-→ Check you're using `var(--space-*)` tokens, not fixed pixels.
+**Project/design not showing up** — check for a missing comma after the previous array entry, a duplicate `id`, or an image path that doesn't match the actual filename (case and spaces included).
 
-**Section colors blend together?**  
-→ Ensure sections have alternating `background-color` set.
+**Images look broken** — open the browser console (F12) for 404s. Filenames in the data files must exactly match files in `assets/` — including capitalization, spaces, and extension.
 
-**Mobile menu not opening?**  
-→ Check `script.js` loaded and `.menu-toggle` has click listener.
+**Resume shows a project twice / not at all** — `resume.js` deduplicates by `title`. Make sure the title in `projects-data.js` isn't also hand-duplicated in `resume-data.js`.
 
-**Images misaligned?**  
-→ Verify container has `display: flex/grid` with proper `align-items`.
+**Styles look wrong after editing `style.css`** — if you ran `npm run css:build`, the file is now minified on one line; that's expected, not broken.
 
 ---
 
-## Future Enhancements
-
-- [ ] Add dark/light theme toggle
-- [ ] Implement contact form with Formspree or Netlify Forms
-- [ ] Add project filtering by tech stack
-- [ ] Add smooth scroll indicator
-- [ ] Integrate analytics
-- [ ] Add accessibility: skip-to-content link, ARIA labels
-
----
-
-**Last updated:** May 2026  
-**Maintained by:** Portfolio owner  
-**Questions?** Refer to inline code comments or open an issue in the repo.
+**Last updated:** July 2026
+**Maintained by:** Portfolio owner

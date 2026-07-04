@@ -21,6 +21,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=fallback&subset=latin">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="image" href="assets/images/my profile1.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print"
     onload="this.media='all'">
@@ -63,6 +64,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#figma-designs">Figma Designs</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -190,6 +192,17 @@
           <p class="section-intro">A selection of projects that reflect my approach to problem-solving and development.</p>
           <div id="projects-list" class="projects-grid">
             <!-- Projects will be rendered dynamically by js/projects-data.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Figma Designs Section -->
+      <section id="figma-designs" class="section">
+        <div class="container">
+          <h2 class="section-title">Figma Designs</h2>
+          <p class="section-intro">UI/UX concepts and interface explorations designed in Figma. Hover a design to preview, click to open the live view-only prototype.</p>
+          <div id="figma-designs-grid" class="figma-grid">
+            <!-- Designs will be rendered dynamically by js/figma-designs.js -->
           </div>
         </div>
       </section>
@@ -481,6 +494,7 @@
     </div>
   </div>
   <script src="js/projects-data.js"></script>
+  <script src="js/figma-designs.js"></script>
   <script src="js/script.js"></script>
 </body>
 

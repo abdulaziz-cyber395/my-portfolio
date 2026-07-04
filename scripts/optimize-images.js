@@ -2,16 +2,26 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const imagesDir = path.join(__dirname, '..', 'assets', 'images');
+// Covers both the regular screenshot library and the Figma design exports —
+// the "figma img" folder was added later and needs the same compression pass.
+const imageDirs = [
+  path.join(__dirname, '..', 'assets', 'images'),
+  path.join(__dirname, '..', 'assets', 'figma img')
+];
 const maxWidth = 1200;
 const maxHeight = 1200;
 const quality = 85;
 
-async function optimizeImages() {
+async function optimizeDir(imagesDir) {
+  if (!fs.existsSync(imagesDir)) {
+    console.log(`SKIP DIR (not found): ${imagesDir}\n`);
+    return;
+  }
+
   const files = fs.readdirSync(imagesDir);
   const imageFiles = files.filter(f => /\.(jpe?g|png|webp)$/i.test(f));
 
-  console.log(`Optimizing ${imageFiles.length} images...\n`);
+  console.log(`\n${imagesDir}\nOptimizing ${imageFiles.length} images...\n`);
 
   for (const file of imageFiles) {
     const filePath = path.join(imagesDir, file);
@@ -52,7 +62,12 @@ async function optimizeImages() {
       console.log(`  ERROR: ${err.message}\n`);
     }
   }
+}
 
+async function optimizeImages() {
+  for (const dir of imageDirs) {
+    await optimizeDir(dir);
+  }
   console.log('Image optimization complete!');
 }
 
