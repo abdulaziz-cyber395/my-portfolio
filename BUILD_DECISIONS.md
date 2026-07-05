@@ -379,7 +379,7 @@ Large images were the primary performance bottleneck. The `scripts/optimize-imag
 
 - Convert images to WebP format for modern browsers
 - ~~Add image width/height attributes for CLS~~ — done for the hero/profile images (explicit `width`/`height` + `<link rel="preload" as="image">` on the LCP image) and for grid images (`aspect-ratio` reserved on the container, which achieves the same result for responsive grids)
-- Implement font-display swap for Inter font
+- ~~Implement font-display swap for Inter font~~ — done sitewide (was inconsistent: 3 pages used `display=fallback`, `resume.html` already used `display=swap`). All 4 pages now use `display=swap`, and the Google Fonts stylesheet link uses the same `media="print" onload="this.media='all'"` non-blocking trick already used for Font Awesome, confirmed against a live Lighthouse run flagging "Font display" and "Render-blocking requests"
 - Minify JavaScript files
 
 ---
