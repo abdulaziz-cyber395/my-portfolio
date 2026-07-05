@@ -35,40 +35,10 @@ const resumeData = {
     "Communication"
   ],
 
-  projects: [
-    {
-      title: "Ghana National Symbols",
-      category: "Educational Platform",
-      description: "A research-driven educational platform centralizing Ghanaian national symbols with historical depth and cultural context, making this knowledge accessible to students and curious learners.",
-      tech: ["HTML", "CSS", "JavaScript", "Figma"],
-      liveUrl: "https://national-symbols-ghana.netlify.app/",
-      githubUrl: "https://github.com/abdulaziz-cyber395/symbols-Ghana.git"
-    },
-    {
-      title: "Revas Tech",
-      category: "Corporate Website",
-      description: "A professional corporate website that transformed how a tech company presents itself online, turning confusion into clarity with strategic design and user-focused architecture.",
-      tech: ["HTML", "CSS", "JavaScript"],
-      liveUrl: "https://revas-tech.vercel.app/",
-      githubUrl: "https://github.com/abdulaziz-cyber395/RevasTech.git"
-    },
-    {
-      title: "Calculator App",
-      category: "Interactive Application",
-      description: "A foundation project demonstrating JavaScript fundamentals through a clean, intuitive interface that prioritizes user experience.",
-      tech: ["HTML", "CSS", "JavaScript"],
-      liveUrl: "#",
-      githubUrl: "https://github.com/abdulaziz-cyber395/calculator-app"
-    },
-    {
-      title: "Modern Sign Up Form",
-      category: "Form Design",
-      description: "A user-centric form demonstrating accessibility, validation, and the importance of respecting user time with thoughtful design.",
-      tech: ["HTML5", "CSS3", "JavaScript"],
-      liveUrl: "#",
-      githubUrl: "https://github.com/abdulaziz-cyber395/signup-form"
-    }
-  ],
+  // Note: project data intentionally lives only in js/projects-data.js now —
+  // resume.js reads that array directly. Don't re-add a hardcoded project
+  // list here; it drifted out of sync with projects-data.js before (missing
+  // the "Personal Portfolio" project, stale descriptions).
 
   education: [
     {
@@ -85,12 +55,3 @@ const resumeData = {
     }
   ]
 };
-
-function getAllUniqueTech() {
-  const techSet = new Set();
-  if (typeof projects !== "undefined" && Array.isArray(projects)) {
-    projects.forEach(p => p.tech.forEach(t => techSet.add(t)));
-  }
-  resumeData.projects.forEach(p => p.tech.forEach(t => techSet.add(t)));
-  return Array.from(techSet);
-}

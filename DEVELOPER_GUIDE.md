@@ -138,7 +138,7 @@ Hover state ("See Live Design") and the darken/scale effect live in `style.css` 
 
 ### Resume (`js/resume-data.js` + `js/resume.js`)
 
-`resume-data.js` holds everything NOT already covered by projects: name, title, contact info, summary, skills (technical/learning/soft), education. `resume.js` merges this with the `projects` array and renders `resume.html` — you never hand-edit `resume.html`.
+`resume-data.js` holds everything NOT already covered by projects: name, title, contact info, summary, skills (technical/learning/soft), education. Projects are rendered straight from the `projects` array in `projects-data.js` (`resume.js`'s `renderProjects()` maps each project's `category` slug to a display label) — there is no separate resume-only project list, so there's nothing to keep in sync. You never hand-edit `resume.html`.
 
 ---
 

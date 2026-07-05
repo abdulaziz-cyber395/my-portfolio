@@ -62,27 +62,31 @@
       </div>`;
   };
 
+  const CATEGORY_LABELS = {
+    educational: 'Educational Platform',
+    corporate: 'Corporate Website',
+    'design-system': 'Design System',
+    interactive: 'Interactive App',
+    'form-design': 'Form Design'
+  };
+
   const renderProjects = () => {
     const section = document.getElementById('resume-projects');
     if (!section) return;
 
-    let projectList = rd.projects || [];
-
-    if (typeof projects !== 'undefined' && Array.isArray(projects) && projects.length > 0) {
-      const usedTitle = new Set(projectList.map(p => p.title));
-      projects.forEach(p => {
-        if (!usedTitle.has(p.title)) {
-          projectList.push({
-            title: p.title,
-            category: p.category,
-            description: p.summary,
-            tech: p.tech,
-            liveUrl: p.liveUrl,
-            githubUrl: p.githubUrl
-          });
-        }
-      });
-    }
+    // Single source of truth: js/projects-data.js. There's no separate
+    // resume-only project list anymore, so descriptions can't drift out of
+    // sync between the portfolio and the resume.
+    const projectList = (typeof projects !== 'undefined' && Array.isArray(projects))
+      ? projects.map(p => ({
+          title: p.title,
+          category: CATEGORY_LABELS[p.category] || p.category,
+          description: p.summary,
+          tech: p.tech,
+          liveUrl: p.liveUrl,
+          githubUrl: p.githubUrl
+        }))
+      : [];
 
     const itemsHtml = projectList.map(p => {
       const techHtml = p.tech.map(t => `<span class="resume-project-tech">${t}</span>`).join('');

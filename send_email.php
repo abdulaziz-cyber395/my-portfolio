@@ -1,11 +1,17 @@
 <?php
 /**
- * send_email.php — Server-side form handler (fallback / alternative to EmailJS)
+ * send_email.php — Server-side form handler (self-hosted alternative to Formsubmit)
  *
- * Usage:
+ * NOT CURRENTLY ACTIVE: the live contact form in index.html posts to Formsubmit
+ * (action="https://formsubmit.co/..."), not to this file. This script is kept
+ * for anyone who later moves to PHP-capable hosting and wants to self-host the
+ * mailer instead. GitHub Pages / Netlify / Vercel static hosting cannot run PHP,
+ * so this file does nothing as-is on the current deployment.
+ *
+ * Usage (if you switch to this instead of Formsubmit):
  *   1. Update the $TO_EMAIL constant below with the email that should receive submissions.
- *   2. Upload this file to any PHP-enabled web host (Netlify, Vercel, shared hosting, etc.).
- *   3. Update the form action in index.html or your JS to POST to this URL.
+ *   2. Upload this file to any PHP-enabled web host.
+ *   3. Change the form's `action` in index.html to POST to this URL instead of Formsubmit.
  *
  * Security notes:
  *   - Uses native PHP mail() — for low-volume personal use this is fine.

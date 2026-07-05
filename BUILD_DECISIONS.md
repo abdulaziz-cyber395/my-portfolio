@@ -295,13 +295,11 @@ html { scroll-behavior: smooth; }
 
 ## 10. Backend Integration Decision
 
-### EmailJS for Contact Form
+### Formsubmit for Contact Form
 
-**Decision**: Use EmailJS CDN script instead of custom backend.
+**Decision**: Post the contact form directly to Formsubmit (`action="https://formsubmit.co/..."`) instead of running a custom backend.
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-```
+**2026-07 correction**: this section previously described an EmailJS-based approach, but the form in `index.html` has actually been using Formsubmit for a while — the docs just hadn't caught up. `send_email.php` in the repo root is a self-hosted PHP alternative to either service; it's not currently wired to the live form (it requires PHP hosting, which GitHub Pages/Netlify/Vercel static hosting doesn't provide) and is kept for anyone who moves to PHP-capable hosting later.
 
 **Why**:
 - **No Server**: Static hosting remains viable
