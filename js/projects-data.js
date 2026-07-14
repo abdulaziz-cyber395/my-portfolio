@@ -174,6 +174,76 @@ const projects = [
         content: "This project taught me that <strong>forms are UX intensive</strong>. Every field, every label, every interaction has a psychological impact. Users make decisions in milliseconds — good form design reduces friction and builds confidence.<p>I also learned about <strong>respectful JavaScript</strong>. The validation should help, not hinder. Error messages should guide, not shame.</p><p><strong>Most importantly:</strong> The best interfaces disappear. When a form works well, users don't think about the interface — they just complete the task.</p>"
       }
     ]
+  },
+  {
+    id: "dr-danso-website",
+    number: "06",
+    title: "Dr. Danso | Humanitarian Healthcare Website",
+    summary: "A mission-driven website that communicates Dr. Edward Kwame Danso's healthcare, research, and humanitarian advocacy work with clear storytelling and strong support calls to action.",
+    category: "humanitarian",
+    image: "assets/images/edansoshot.png",
+    tech: ["HTML", "CSS", "JavaScript", "Figma", "Content Strategy"],
+    liveUrl: "https://danso.classm4.com/",
+    githubUrl: "#",
+    details: [
+      {
+        heading: '<i class="fa-solid fa-bullseye"></i> The Core Purpose',
+        content: "The site needed to do more than present information — it had to connect visitors emotionally to a cause, explain a life of service, and make it easy for people to support elderly care, healthcare education, and research."
+      },
+      {
+        heading: '<i class="fa-solid fa-building"></i> How I Structured the Experience',
+        content: "<p><strong>Story-first structure:</strong> I arranged the content around a clear narrative: who Dr. Danso is, what he stands for, how his work impacts lives, and how visitors can get involved.</p><p><strong>Section hierarchy:</strong> The page moves from mission and purpose to professional background, initiatives, impact, and support — making the message easy to follow.</p><p><strong>Conversion-focused design:</strong> Each section was designed to guide visitors toward meaningful actions such as supporting the cause, reaching out, or learning more.</p>"
+      },
+      {
+        heading: '<i class="fa-solid fa-lightbulb"></i> What Was Delivered',
+        list: [
+          "Mission-driven storytelling with emotionally resonant messaging",
+          "Clear navigation for About, Mission, Background, Work, and Contact",
+          "Responsive layout for mobile and desktop reading",
+          "Strong support call-to-actions for donations, outreach, and collaboration",
+          "A polished presentation that balances compassion, credibility, and clarity"
+        ]
+      },
+      {
+        heading: '<i class="fa-solid fa-rocket"></i> What I Learned',
+        content: "This project reinforced that design can carry purpose. When the content is about people and impact, the interface should feel warm, trustworthy, and easy to engage with. I learned that thoughtful structure and clear messaging can turn a strong cause into a compelling digital experience."
+      }
+    ]
+  },
+  {
+    id: "kafuis-media",
+    number: "07",
+    title: "KAFUI'S MEDIA | Multimedia Portfolio Website",
+    summary: "A premium creative media website designed to showcase photography, videography, and live production services with strong brand storytelling and clear booking calls to action.",
+    category: "multimedia",
+    image: "assets/images/kafuismedia.png",
+    tech: ["HTML", "CSS", "JavaScript", "Figma", "Brand Storytelling"],
+    liveUrl: "https://atasa-portfolio.vercel.app/index.html",
+    githubUrl: "#",
+    details: [
+      {
+        heading: '<i class="fa-solid fa-bullseye"></i> The Creative Goal',
+        content: "The website needed to reflect a premium, polished media brand while making it easy for clients to understand the company’s services, view recent work, and request bookings."
+      },
+      {
+        heading: '<i class="fa-solid fa-building"></i> How I Approached the Build',
+        content: "<p><strong>Brand-led structure:</strong> I shaped the experience around the company’s identity, emphasizing professionalism, cinematic visuals, and a modern creative tone.</p><p><strong>Service-focused sections:</strong> Photography, videography, and live production were presented clearly to help visitors quickly understand what the company offers.</p><p><strong>Conversion path:</strong> The layout was designed to guide visitors from portfolio exploration toward booking and contact actions.</p>"
+      },
+      {
+        heading: '<i class="fa-solid fa-lightbulb"></i> What Was Delivered',
+        list: [
+          "Elegant, cinematic presentation suited to a premium media brand",
+          "Clear sections for services, portfolio highlights, testimonials, and booking",
+          "Responsive design for smooth browsing across devices",
+          "A polished narrative that balances visual storytelling and business clarity",
+          "A strong call-to-action flow for inquiries and bookings"
+        ]
+      },
+      {
+        heading: '<i class="fa-solid fa-rocket"></i> What I Learned',
+        content: "This project highlighted how important visual tone is for creative businesses. A well-structured portfolio can communicate both artistic quality and business credibility when the experience is aligned with the brand’s voice."
+      }
+    ]
   }
 ];
 
@@ -183,7 +253,7 @@ function renderProjectCards(containerId) {
 
   const cardsHtml = projects.map((project, index) => `
     <a href="projects.html#${project.id}" class="card project-card project-card-link">
-      <div class="project-badge">${project.category === 'educational' ? 'Educational Platform' : project.category === 'corporate' ? 'Corporate Website' : project.category === 'design-system' ? 'Design System' : project.category === 'interactive' ? 'Interactive App' : 'Form Design'}</div>
+      <div class="project-badge">${project.category === 'educational' ? 'Educational Platform' : project.category === 'corporate' ? 'Corporate Website' : project.category === 'design-system' ? 'Design System' : project.category === 'interactive' ? 'Interactive App' : project.category === 'humanitarian' ? 'Humanitarian Website' : project.category === 'multimedia' ? 'Multimedia Website' : 'Form Design'}</div>
       <div class="project-image">
         <img src="${project.image}" alt="${project.title} Screenshot" width="320" height="180" loading="lazy">
       </div>
