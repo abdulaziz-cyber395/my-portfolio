@@ -44,6 +44,7 @@ if (backToTop) {
 const typingElement = document.querySelector('.typing-text');
 if (typingElement) {
   const words = ['modern web applications', 'clean interfaces', 'scalable systems', 'intuitive experiences', 'AI-driven solutions'];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let wordIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
@@ -51,31 +52,67 @@ if (typingElement) {
   const deletingSpeed = 40;
   const pauseTime = 2000;
 
-  function type() {
-    const currentWord = words[wordIndex];
-    if (isDeleting) {
-      typingElement.textContent = currentWord.substring(0, charIndex - 1);
-      charIndex--;
-    } else {
-      typingElement.textContent = currentWord.substring(0, charIndex + 1);
-      charIndex++;
-    }
+  function measureLongestWord() {
+    const computed = getComputedStyle(typingElement);
+    const testSpan = document.createElement('span');
+    testSpan.style.visibility = 'hidden';
+    testSpan.style.position = 'absolute';
+    testSpan.style.whiteSpace = 'nowrap';
+    testSpan.style.font = `${computed.fontWeight} ${computed.fontSize} ${computed.fontFamily}`;
+    document.body.appendChild(testSpan);
 
-    let typeDelay = isDeleting ? deletingSpeed : typingSpeed;
+    let maxWidth = 0;
+    words.forEach(word => {
+      testSpan.textContent = word;
+      maxWidth = Math.max(maxWidth, testSpan.offsetWidth);
+    });
 
-    if (!isDeleting && charIndex === currentWord.length) {
-      typeDelay = pauseTime;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      typeDelay = 300;
-    }
-
-    setTimeout(type, typeDelay);
+    document.body.removeChild(testSpan);
+    typingElement.style.display = 'inline-block';
+    typingElement.style.whiteSpace = 'nowrap';
+    typingElement.style.minWidth = `${maxWidth}px`;
+    typingElement.style.width = `${maxWidth}px`;
   }
 
-  setTimeout(type, 1000);
+  if (prefersReducedMotion) {
+    typingElement.textContent = words[0];
+  } else {
+    measureLongestWord();
+
+    function startAnimation() {
+      function type() {
+        const currentWord = words[wordIndex];
+        if (isDeleting) {
+          typingElement.textContent = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typingElement.textContent = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let typeDelay = isDeleting ? deletingSpeed : typingSpeed;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          typeDelay = pauseTime;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          typeDelay = 300;
+        }
+
+        setTimeout(type, typeDelay);
+      }
+
+      setTimeout(type, 1000);
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(startAnimation);
+    } else {
+      window.addEventListener('load', startAnimation);
+    }
+  }
 }
 
 // ===== SCROLL SPY =====

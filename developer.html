@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Developer guide for Inusah Abdul Aziz's portfolio — architecture, files, data flow, and maintenance notes for future contributors.">
+  <meta property="og:title" content="Developer Guide - Inusah Abdul Aziz">
+  <meta property="og:description" content="Technical reference for this portfolio's structure, scripts, data flow, and deployment conventions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://abdulaziz-cyber395.github.io/my-portfolio/developer.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Developer Guide - Inusah Abdul Aziz">
+  <meta name="twitter:description" content="Technical reference for this portfolio's structure, scripts, data flow, and deployment conventions.">
+  <meta name="theme-color" content="#060a08">
+  <link rel="canonical" href="https://abdulaziz-cyber395.github.io/my-portfolio/developer.html">
+  <title>Developer Guide - Inusah Abdul Aziz</title>
+  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap&subset=latin">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap&subset=latin" media="print" onload="this.media='all'">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="css/docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+</head>
+
+<body>
+  <div class="docs-container">
+    <button class="mobile-sidebar-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="docs-sidebar" id="sidebar-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="docs-sidebar-overlay"></div>
+
+    <aside class="docs-sidebar" id="docs-sidebar">
+      <div class="sidebar-header">
+        <h2>Developer Guide</h2>
+        <p class="sidebar-subtitle">Technical architecture and maintenance reference</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="#overview" class="nav-link">Overview</a></li>
+          <li><a href="#architecture" class="nav-link">Architecture</a></li>
+          <li><a href="#data-flow" class="nav-link">Data Flow</a></li>
+          <li><a href="#scripts" class="nav-link">Scripts</a></li>
+          <li><a href="#performance" class="nav-link">Performance</a></li>
+          <li><a href="#deployment" class="nav-link">Deployment</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="index.html" class="back-to-portfolio"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+      </div>
+    </aside>
+
+    <main class="docs-main">
+      <header class="docs-hero">
+        <div class="hero-content">
+          <h1 class="hero-title">Developer Technical Guide</h1>
+          <p class="hero-subtitle">A code-focused reference for the portfolio's structure, rendering flow, and operational conventions.</p>
+          <div class="hero-meta">
+            <span class="meta-item">Vanilla HTML/CSS/JS</span>
+            <span class="meta-item">Data-driven content</span>
+            <span class="meta-item">Static deployment</span>
+            <a class="meta-item" href="documentation.html">Open Maintenance Guide</a>
+          </div>
+        </div>
+      </header>
+
+      <section id="overview" class="docs-section">
+        <div class="section-header">
+          <h2>Project Overview</h2>
+          <p class="section-description">This portfolio intentionally avoids a framework. The site is built with static markup and small JavaScript renderers that keep content maintainable and easy to extend.</p>
+        </div>
+
+        <div class="content-grid">
+          <div class="content-card">
+            <h3>Core Principles</h3>
+            <ul>
+              <li>Content stays in data files whenever possible.</li>
+              <li>Rendering is handled by lightweight JavaScript at runtime.</li>
+              <li>The homepage, projects page, and resume share the same source of truth.</li>
+              <li>Styling is centralized in a single stylesheet for the main site.</li>
+            </ul>
+          </div>
+
+          <div class="content-card">
+            <h3>File Responsibilities</h3>
+            <ul>
+              <li><code>index.html</code> — homepage content and static sections</li>
+              <li><code>projects.html</code> — dynamic project detail rendering</li>
+              <li><code>resume.html</code> — generated resume layout</li>
+              <li><code>js/projects-data.js</code> — project source of truth</li>
+              <li><code>js/resume-data.js</code> — resume profile and contact data</li>
+              <li><code>js/script.js</code> — shared UI, filters, animation, and interactions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture" class="docs-section">
+        <div class="section-header">
+          <h2>Architecture</h2>
+          <p class="section-description">The site uses a simple layered structure: HTML structure, CSS tokens/components, and JS data rendering.</p>
+        </div>
+
+        <div class="content-grid">
+          <div class="content-card full-width">
+            <h3>Layered Structure</h3>
+            <div class="flow-diagram">
+              <div class="flow-item">
+                <div class="flow-icon"><i class="fa-solid fa-file-code"></i></div>
+                <div class="flow-label">HTML Shell</div>
+                <div class="flow-desc">Static page structure</div>
+              </div>
+              <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              <div class="flow-item">
+                <div class="flow-icon"><i class="fa-solid fa-palette"></i></div>
+                <div class="flow-label">CSS Design System</div>
+                <div class="flow-desc">Tokens, layout, components</div>
+              </div>
+              <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              <div class="flow-item">
+                <div class="flow-icon"><i class="fa-solid fa-database"></i></div>
+                <div class="flow-label">JS Data Sources</div>
+                <div class="flow-desc">Projects + resume data</div>
+              </div>
+            </div>
+            <p>That separation makes the portfolio easy to maintain. You can change content in a single data file without reworking layout markup.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="data-flow" class="docs-section">
+        <div class="section-header">
+          <h2>Data Flow</h2>
+          <p class="section-description">Project and resume entries originate in JavaScript arrays and are rendered into each page with shared logic.</p>
+        </div>
+
+        <div class="content-grid">
+          <div class="content-card">
+            <h3>Projects</h3>
+            <p>Entries in <code>js/projects-data.js</code> feed the homepage cards, the projects detail page, and the auto-generated resume.</p>
+            <pre><code>const projects = [
+  {
+    id: "project-name",
+    title: "Project Title",
+    summary: "Short summary",
+    category: "interactive",
+    tech: ["HTML", "CSS", "JavaScript"]
+  }
+];</code></pre>
+          </div>
+
+          <div class="content-card">
+            <h3>Resume</h3>
+            <p>The resume uses <code>js/resume-data.js</code> for profile and education details, while project content is pulled from the shared project array.</p>
+            <div class="pro-tip">
+              <i class="fa-solid fa-circle-info"></i>
+              <div>
+                <strong>Note:</strong> Keep the resume data accurate in one place, and the generated pages will remain in sync.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scripts" class="docs-section">
+        <div class="section-header">
+          <h2>Scripts & Interaction</h2>
+          <p class="section-description">The shared script file manages common behavior including toggles, scroll updates, reveal effects, and typing animation.</p>
+        </div>
+
+        <div class="content-grid">
+          <div class="content-card">
+            <h3>Shared Runtime Behavior</h3>
+            <ul>
+              <li>Theme toggle persistence with localStorage</li>
+              <li>Scroll progress bar and back-to-top button</li>
+              <li>Reveal animations and active nav linking</li>
+              <li>Hero typing animation with reduced-motion support</li>
+            </ul>
+          </div>
+
+          <div class="content-card">
+            <h3>Specialized Docs Behavior</h3>
+            <p><code>js/docs.js</code> powers the docs sidebar and mobile navigation on the documentation pages.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="performance" class="docs-section">
+        <div class="section-header">
+          <h2>Performance & Layout Stability</h2>
+          <p class="section-description">The site is optimized around predictable layout rules so pages feel smooth on both desktop and mobile.</p>
+        </div>
+
+        <div class="content-grid">
+          <div class="content-card">
+            <h3>Layout Safety</h3>
+            <ul>
+              <li>Hero and project images reserve space before loading.</li>
+              <li>Longer content is wrapped safely to prevent overflow.</li>
+              <li>Animations defer to reduced-motion preferences.</li>
+            </ul>
+          </div>
+
+          <div class="content-card">
+            <h3>Fonts & Assets</h3>
+            <ul>
+              <li>Fonts are preloaded and loaded with fallback handling.</li>
+              <li>Images are lazy-loaded below the fold when appropriate.</li>
+              <li>Critical images use explicit dimensions for stable layout behavior.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="deployment" class="docs-section">
+        <div class="section-header">
+          <h2>Deployment Notes</h2>
+          <p class="section-description">Because this portfolio is fully static, deployment is straightforward and only depends on hosting the generated files.</p>
+        </div>
+
+        <div class="content-grid">
+          <div class="content-card full-width">
+            <h3>Recommended Workflow</h3>
+            <ol>
+              <li>Update HTML / data files with the final copy.</li>
+              <li>Run image optimization when assets change.</li>
+              <li>Push the repository to GitHub Pages or a static host.</li>
+              <li>Confirm that links and assets resolve on the deployed domain.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <footer class="docs-footer">
+        <div class="footer-content">
+          <p>Developer Guide • Technical reference for the portfolio</p>
+          <p>Keep the site simple, reliable, and easy to maintain.</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="js/docs.js"></script>
+</body>
+
+</html>

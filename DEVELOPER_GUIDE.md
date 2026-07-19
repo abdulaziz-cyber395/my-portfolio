@@ -8,6 +8,48 @@ A vanilla HTML/CSS/JS portfolio — no framework, no build step. Content for pro
 
 ---
 
+## Code Architecture & Conventions
+
+### File Responsibilities
+
+| File | Role |
+|---|---|
+| `index.html` | Homepage markup + static sections (about, education, approach, skills, contact) |
+| `projects.html` | Dynamic project detail rendering + category filtering |
+| `resume.html` | Auto-generated resume layout + PDF/print styles |
+| `documentation.html` | User-facing maintenance guide (this file is for developers) |
+| `css/style.css` | All design tokens, components, layouts, and responsive breakpoints |
+| `css/docs.css` | Documentation page layout and sidebar styles |
+| `js/script.js` | Shared interactions: theme toggle, scroll spy, reveal animations, typing animation, contact form |
+| `js/projects-data.js` | Single source of truth for all project entries |
+| `js/figma-designs.js` | Figma design showcase data and rendering |
+| `js/resume-data.js` | Personal info, skills, education for the resume |
+| `js/resume.js` | Merges project + resume data and renders `resume.html` |
+| `js/docs.js` | Documentation page interactions (sidebar nav, mobile toggle, scroll spy) |
+
+### Naming Conventions
+
+- **CSS classes:** BEM-inspired, descriptive (`project-card`, `filter-section`, `timeline-content`)
+- **JS variables/functions:** camelCase (`typingElement`, `measureLongestWord`, `updateActiveNav`)
+- **Data keys:** camelCase matching HTML attribute names (`liveUrl`, `githubUrl`, `tech`)
+- **IDs:** kebab-case (`main-nav`, `projects-list`, `contact-form`)
+
+### State Management
+
+- **Theme:** `data-theme` attribute on `<html>` + `localStorage` key `theme`
+- **Mobile nav:** `.active` class on `.menu-toggle` and `.nav-links`
+- **Docs sidebar:** `.open` class on `.docs-sidebar` + `.active` on `.mobile-sidebar-toggle`
+- **Scroll spy:** `.active` class on nav links, toggled by `script.js` and `docs.js`
+
+### Performance Budgets
+
+- **LCP element:** Hero profile image (`fetchpriority="high"`, preloaded in `<head>`)
+- **Font loading:** Google Fonts loaded with `preconnect` + `preload` + `media="print" onload` trick
+- **Animations:** `prefers-reduced-motion` media query disables all transitions
+- **CSS:** No external frameworks; `style.css` is edited directly (minify only before deploy)
+
+---
+
 ## Project Structure
 
 ```

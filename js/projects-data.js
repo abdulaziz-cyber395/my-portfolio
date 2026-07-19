@@ -184,7 +184,7 @@ const projects = [
     image: "assets/images/edansoshot.png",
     tech: ["HTML", "CSS", "JavaScript", "Figma", "Content Strategy"],
     liveUrl: "https://danso.classm4.com/",
-    githubUrl: "#",
+    githubUrl: "https://github.com/abdulaziz-cyber395/danso.git",
     details: [
       {
         heading: '<i class="fa-solid fa-bullseye"></i> The Core Purpose',
@@ -218,8 +218,8 @@ const projects = [
     category: "multimedia",
     image: "assets/images/kafuismedia.png",
     tech: ["HTML", "CSS", "JavaScript", "Figma", "Brand Storytelling"],
-    liveUrl: "https://atasa-portfolio.vercel.app/index.html",
-    githubUrl: "#",
+    liveUrl: "https://atasa-portfolio.vercel.app/",
+    githubUrl: "https://github.com/abdulaziz-cyber395/client-atasa-portfolio.git",
     details: [
       {
         heading: '<i class="fa-solid fa-bullseye"></i> The Creative Goal',
@@ -260,13 +260,9 @@ function renderProjectCards(containerId) {
       <div class="project-content">
         <h3>${project.title}</h3>
         <p>${project.summary}</p>
-        <div class="project-meta">
-          <span class="project-stat"><strong>${index + 1}</strong> Project</span>
-          <span class="project-stat"><strong>${project.category}</strong> Focus</span>
+        <div class="project-tech">
+          ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
         </div>
-      </div>
-      <div class="project-tech">
-        ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
       </div>
       <div class="project-links">
         <span class="project-link project-link-primary">Explore Details</span>

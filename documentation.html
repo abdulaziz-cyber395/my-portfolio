@@ -69,12 +69,13 @@
     <main class="docs-main">
       <header class="docs-hero">
         <div class="hero-content">
-          <h1 class="hero-title">My Portfolio Guide</h1>
-          <p class="hero-subtitle">Everything you need to know to update and maintain this portfolio — written for you, not for robots.</p>
+          <h1 class="hero-title">Portfolio Maintenance Guide</h1>
+          <p class="hero-subtitle">A simple owner-facing guide for updating content, swapping assets, and keeping the portfolio healthy without touching a build pipeline.</p>
           <div class="hero-meta">
             <span class="meta-item">No frameworks</span>
             <span class="meta-item">No build step</span>
             <span class="meta-item">Just edit and refresh</span>
+            <a class="meta-item" href="developer.html">Open Developer Guide</a>
           </div>
         </div>
       </header>
@@ -135,68 +136,52 @@
       <!-- Getting Started -->
       <section id="getting-started" class="docs-section">
         <div class="section-header">
-          <h2>Getting Started</h2>
-          <p class="section-description">Open the project, make a change, and see it instantly.</p>
+          <h2>Owner Maintenance Checklist</h2>
+          <p class="section-description">This page is for quick updates to your portfolio. If you need deeper code architecture notes, use the technical developer guide instead.</p>
         </div>
 
         <div class="content-grid">
 
           <div class="content-card">
-            <h3>What's in the Box</h3>
-            <p>This is a plain HTML/CSS/JS site. No React, no Node, no build tools. You can open <code>index.html</code> directly in your browser and everything works.</p>
-            <div class="file-tree">
-              <div class="file-tree-item"><i class="fa-solid fa-folder"></i> my-portfolio/</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> index.html</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> projects.html</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> resume.html <em>auto-generated</em></div>
-              <div class="file-tree-item"><i class="fa-solid fa-folder"></i> css/</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> style.css</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> docs.css</div>
-              <div class="file-tree-item"><i class="fa-solid fa-folder"></i> js/</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> projects-data.js <strong>edit this for projects</strong></div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> figma-designs.js <strong>edit this for Figma designs</strong></div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> resume-data.js <strong>edit this for resume</strong></div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> script.js</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> resume.js</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-file-code"></i> docs.js</div>
-              <div class="file-tree-item"><i class="fa-solid fa-folder"></i> assets/</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-folder"></i> images/</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-folder"></i> figma img/</div>
-              <div class="file-tree-item file-tree-child"><i class="fa-solid fa-folder"></i> icons/</div>
-            </div>
-          </div>
-
-          <div class="content-card">
-            <h3>How to Edit</h3>
-            <ol>
-              <li>Open the folder in VS Code (or any editor)</li>
-              <li>Edit the file you need</li>
-              <li>Save it</li>
-              <li>Refresh your browser</li>
-            </ol>
+            <h3>What to Update Most Often</h3>
+            <ul>
+              <li><strong>Bio and intro</strong> — edit <code>index.html</code></li>
+              <li><strong>Project cards</strong> — edit <code>js/projects-data.js</code></li>
+              <li><strong>Resume details</strong> — edit <code>js/resume-data.js</code></li>
+              <li><strong>Images and screenshots</strong> — replace files in <code>assets/images/</code> or <code>assets/figma img/</code></li>
+            </ul>
             <div class="pro-tip">
               <i class="fa-solid fa-lightbulb"></i>
               <div>
-                <strong>Pro Tip:</strong> Use the <strong>Live Server</strong> extension in VS Code — it auto-refreshes when you save, so you see changes instantly.
+                <strong>Fast workflow:</strong> open the file, make the change, save it, and refresh the browser. No build step is required.
               </div>
             </div>
           </div>
 
           <div class="content-card">
-            <h3>Where Things Live</h3>
-            <ul>
-              <li><strong>Text content</strong> — in the HTML files (<code>index.html</code>, <code>projects.html</code>)</li>
-              <li><strong>Resume data</strong> — in <code>js/resume-data.js</code> (skills, education, summary)</li>
-              <li><strong>Projects</strong> — in <code>js/projects-data.js</code> (also auto-updates the resume)</li>
-              <li><strong>Colors & fonts</strong> — in <code>css/style.css</code> (top of the file)</li>
-              <li><strong>Images</strong> — in <code>assets/images/</code></li>
-            </ul>
+            <h3>Recommended Preview Flow</h3>
+            <ol>
+              <li>Open the site in VS Code</li>
+              <li>Use a local preview or Live Server</li>
+              <li>Save the updated file</li>
+              <li>Refresh to confirm the change</li>
+            </ol>
             <div class="pro-tip">
               <i class="fa-solid fa-circle-info"></i>
               <div>
-                <strong>Note:</strong> The resume is fully auto-generated. You never need to edit <code>resume.html</code> directly — it pulls from the data files automatically.
+                <strong>Tip:</strong> Keep the <strong>Developer Guide</strong> for the technical file map. This page is meant to help you make content changes confidently.
               </div>
             </div>
+          </div>
+
+          <div class="content-card">
+            <h3>Before You Publish</h3>
+            <ul>
+              <li>Check all links and project URLs</li>
+              <li>Verify the hero text and call-to-action buttons still read well</li>
+              <li>Confirm the portfolio looks clean on mobile</li>
+              <li>Make sure images are compressed and not stretched</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -204,61 +189,47 @@
       <!-- How It Works -->
       <section id="architecture" class="docs-section">
         <div class="section-header">
-          <h2>How It Works</h2>
-          <p class="section-description">A simple mental model for how the portfolio is structured.</p>
+          <h2>What Changes Where</h2>
+          <p class="section-description">Use this quick map so you know which file to touch for each portfolio update.</p>
         </div>
 
         <div class="content-grid">
           <div class="content-card full-width">
-            <h3>The Big Picture</h3>
-            <p>Think of your portfolio like a small application with three main data sources:</p>
+            <h3>Simple File Map</h3>
             <div class="flow-diagram">
+              <div class="flow-item">
+                <div class="flow-icon"><i class="fa-solid fa-file-lines"></i></div>
+                <div class="flow-label">index.html</div>
+                <div class="flow-desc">Homepage copy and intro content</div>
+              </div>
+              <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
               <div class="flow-item">
                 <div class="flow-icon"><i class="fa-solid fa-database"></i></div>
                 <div class="flow-label">projects-data.js</div>
-                <div class="flow-desc">All your projects</div>
+                <div class="flow-desc">Project gallery and detail entries</div>
               </div>
               <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
               <div class="flow-item">
-                <div class="flow-icon"><i class="fa-solid fa-file-lines"></i></div>
+                <div class="flow-icon"><i class="fa-solid fa-id-card"></i></div>
                 <div class="flow-label">resume-data.js</div>
-                <div class="flow-desc">Your info, skills, education</div>
-              </div>
-              <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-              <div class="flow-item">
-                <div class="flow-icon"><i class="fa-solid fa-display"></i></div>
-                <div class="flow-label">index.html</div>
-                <div class="flow-desc">About, skills, static content</div>
+                <div class="flow-desc">Resume summary, education, skills</div>
               </div>
             </div>
-            <p style="margin-top: 1.5rem;">When you add a project to <code>projects-data.js</code>, it automatically appears on the projects page AND the resume page. You only enter the project info once.</p>
+            <p style="margin-top: 1.5rem;">If you add a project once in the data file, it can appear in multiple places automatically. That keeps the portfolio easier to maintain over time.</p>
           </div>
 
           <div class="content-card">
-            <h3>The Script Loading Order</h3>
-            <p>On <code>resume.html</code>, scripts load in this order:</p>
-            <ol>
-              <li><code>js/projects-data.js</code> — loads the <code>projects</code> array</li>
-              <li><code>js/resume-data.js</code> — loads the <code>resumeData</code> object</li>
-              <li><code>js/resume.js</code> — merges both and renders the page</li>
-            </ol>
-            <p>On <code>index.html</code> and <code>projects.html</code>, <code>projects-data.js</code> loads first, then <code>script.js</code> renders the cards and handles animations.</p>
-          </div>
-
-          <div class="content-card">
-            <h3>Daily Editing Workflow</h3>
-            <p>Most days you only need to touch <strong>one file</strong>:</p>
+            <h3>Daily Update Pattern</h3>
             <ul>
-              <li>Adding a new project? → Edit <code>js/projects-data.js</code></li>
-              <li>Updating your bio or skills? → Edit <code>js/resume-data.js</code> or <code>index.html</code></li>
-              <li>Changing a color or font? → Edit <code>css/style.css</code></li>
+              <li>Need to add a new showcase piece? → edit <code>js/projects-data.js</code></li>
+              <li>Need to refresh your profile/summary? → edit <code>index.html</code> or <code>js/resume-data.js</code></li>
+              <li>Need to change general look and feel? → edit <code>css/style.css</code></li>
             </ul>
-            <div class="pro-tip">
-              <i class="fa-solid fa-lightbulb"></i>
-              <div>
-                <strong>Pro Tip:</strong> Save. Refresh. That's it. No build step, no compilation, no waiting.
-              </div>
-            </div>
+          </div>
+
+          <div class="content-card">
+            <h3>One-Sentence Rule</h3>
+            <p>When in doubt, start with the page copy and data file first. The developer guide exists for more technical troubleshooting, but most maintenance work stays simple and visual.</p>
           </div>
         </div>
       </section>
